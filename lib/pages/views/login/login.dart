@@ -61,7 +61,8 @@ class Login extends StatelessWidget {
                       String email = emailController.text,
                           password = passwordController.text;
                       if (email.isEmpty || password.isEmpty) {
-                        showSnackBar(context, 'All fields are required');
+                        showSnackBar(
+                            context, 'All fields are required', 'error');
                         return;
                       }
 
@@ -74,7 +75,7 @@ class Login extends StatelessWidget {
                         setLoading(isLoading, false);
                       } catch (error) {
                         setLoading(isLoading, false);
-                        showSnackBar(context, error.toString());
+                        showSnackBar(context, error.toString(), 'error');
                       }
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.black),

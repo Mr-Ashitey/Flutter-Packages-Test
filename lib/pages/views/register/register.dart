@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
+
+import '../../../core/viewModels/auth_view_model.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -32,16 +36,18 @@ class Register extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 filled: true,
                 fillColor: Colors.white30,
               ),
             ),
             const SizedBox(height: 10),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 filled: true,
                 fillColor: Colors.white30,
@@ -52,7 +58,34 @@ class Register extends StatelessWidget {
               valueListenable: isLoading,
               builder: (context, bool value, child) {
                 return ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    // extract email and password text into variables(email, password)
+                    String email = emailController.text,
+                        password = passwordController.text;
+                    if (email.isEmpty || password.isEmpty) {
+                      showSnackBar(context, 'All fields are required', 'error');
+                      return;
+                    }
+
+                    try {
+                      setLoading(isLoading, true);
+                      FocusManager.instance.primaryFocus!
+                          .unfocus(); // unfocus keyboard
+                      await AuthViewModel().register(email, password);
+
+                      setLoading(isLoading, false);
+
+                      // show success alert/snackbar and navigate to login screen to allow user to log into the app
+                      showSnackBar(
+                          context,
+                          'Registration successful: Login to continue',
+                          'success');
+                      Navigator.of(context).pushReplacementNamed(loginRoute);
+                    } catch (error) {
+                      setLoading(isLoading, false);
+                      showSnackBar(context, error.toString(), 'error');
+                    }
+                  },
                   style: ElevatedButton.styleFrom(primary: Colors.black),
                   child: value == true
                       ? const SizedBox(
