@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -17,21 +18,7 @@ class Register extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            DefaultTextStyle(
-              style: GoogleFonts.homemadeApple(
-                fontSize: 20,
-                color: Colors.black,
-              ),
-              child: AnimatedTextKit(
-                repeatForever: true,
-                animatedTexts: [
-                  TyperAnimatedText('It is not enough to do your best,'),
-                  TyperAnimatedText('you must know what to do,'),
-                  TyperAnimatedText('and then do your best'),
-                  TyperAnimatedText('- W.Edwards Deming'),
-                ],
-              ),
-            ),
+            const MotivationalQuote(),
             const Spacer(),
             const Text(
               'Register',
