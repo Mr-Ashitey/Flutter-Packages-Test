@@ -50,14 +50,23 @@ class Register extends StatelessWidget {
             const SizedBox(height: 20),
             ValueListenableBuilder(
               valueListenable: isLoading,
-              builder: (context, value, child) {
+              builder: (context, bool value, child) {
                 return ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(primary: Colors.black),
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  child: value == true
+                      ? const SizedBox(
+                          height: 10,
+                          width: 10,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        )
+                      : const Text(
+                          'Register',
+                          style: TextStyle(fontSize: 20),
+                        ),
                 );
               },
             ),
