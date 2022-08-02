@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
+import 'package:packages_flutter/pages/views/register/register.dart';
 import 'package:provider/provider.dart';
 
 import 'core/viewModels/auth_view_model.dart';
@@ -22,9 +24,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: Login(),
+      theme: ThemeData(
+        textTheme: GoogleFonts.senTextTheme(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const Login(),
+      routes: {
+        Login.routeName: (context) => const Login(),
+        Register.routeName: (context) => const Register(),
+      },
     );
   }
 }
