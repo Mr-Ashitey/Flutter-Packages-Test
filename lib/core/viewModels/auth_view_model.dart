@@ -23,14 +23,14 @@ class AuthViewModel with ChangeNotifier {
   // register function
   Future<void> register(String email, String password) async {
     try {
-      await _api.post('/api/register', body: {
+      final result = await _api.post('/api/register', body: {
         'email': email,
         'password': password,
       });
 
-      notifyListeners();
-    } catch (e) {
-      throw Exception(e);
+      print(result);
+    } on Exception {
+      rethrow;
     }
   }
 }
