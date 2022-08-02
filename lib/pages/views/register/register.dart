@@ -1,6 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 
@@ -11,6 +9,10 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    ValueNotifier<bool> isLoading = ValueNotifier(false);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -46,13 +48,18 @@ class Register extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(primary: Colors.black),
-              child: const Text(
-                'Register',
-                style: TextStyle(fontSize: 20),
-              ),
+            ValueListenableBuilder(
+              valueListenable: isLoading,
+              builder: (context, value, child) {
+                return ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(primary: Colors.black),
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                );
+              },
             ),
             TextButton(
               onPressed: () {
