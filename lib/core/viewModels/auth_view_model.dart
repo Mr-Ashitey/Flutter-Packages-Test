@@ -7,14 +7,16 @@ class AuthViewModel with ChangeNotifier {
   // login function
   Future<void> login(String email, String password) async {
     try {
-      await _api.post('/api/login', body: {
+      final result = await _api.post('/api/login', body: {
         'email': email,
         'password': password,
       });
 
-      notifyListeners();
-    } catch (e) {
-      throw Exception(e);
+      print(result);
+
+      // notifyListeners();
+    } on Exception {
+      rethrow;
     }
   }
 
