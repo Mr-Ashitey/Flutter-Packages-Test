@@ -57,25 +57,36 @@ class Login extends StatelessWidget {
                 builder: (context, value, child) {
                   return ElevatedButton(
                     onPressed: () async {
+                      // extract email and password text into variables(email, password)
                       String email = emailController.text,
                           password = passwordController.text;
                       if (email.isEmpty || password.isEmpty) {
                         showSnackBar(context, 'All fields are required');
                         return;
                       }
+
                       try {
-                        isLoading.value = true;
-                        FocusManager.instance.primaryFocus!.unfocus();
+                        setLoading(isLoading, true);
+                        FocusManager.instance.primaryFocus!
+                            .unfocus(); // unfocus keyboard
                         await AuthViewModel().login(email, password);
-                        isLoading.value = false;
+
+                        setLoading(isLoading, false);
                       } catch (error) {
-                        isLoading.value = false;
+                        setLoading(isLoading, false);
                         showSnackBar(context, error.toString());
                       }
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: value == true
-                        ? const CircularProgressIndicator()
+                        ? const SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            ),
+                          )
                         : const Text(
                             'Login',
                             style: TextStyle(fontSize: 20),
