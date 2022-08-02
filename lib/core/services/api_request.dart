@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class RequstApi {
   late Dio _dio;
-  final _baseUrl = "https://reqres.in/";
+  final _baseUrl = "https://reqres.in";
 
   RequstApi() {
     _dio = Dio();
@@ -19,8 +19,18 @@ class RequstApi {
 
       return response;
     } on DioError catch (e) {
-      debugPrint(e.toString());
-      throw Exception(e.message);
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        debugPrint(e.response!.data['error']);
+        debugPrint(e.response!.requestOptions.toString());
+        throw Exception(e.response!.data['error']);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+        throw Exception(e.message);
+      }
     }
   }
 
@@ -33,8 +43,18 @@ class RequstApi {
 
       return response;
     } on DioError catch (e) {
-      debugPrint(e.toString());
-      throw Exception(e.message);
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        debugPrint(e.response!.data['error']);
+        debugPrint(e.response!.requestOptions.toString());
+        throw Exception(e.response!.data['error']);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+        throw Exception(e.message);
+      }
     }
   }
 
@@ -47,8 +67,18 @@ class RequstApi {
 
       return response;
     } on DioError catch (e) {
-      debugPrint(e.toString());
-      throw Exception(e.message);
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        debugPrint(e.response!.data['error']);
+        debugPrint(e.response!.requestOptions.toString());
+        throw Exception(e.response!.data['error']);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+        throw Exception(e.message);
+      }
     }
   }
 }
