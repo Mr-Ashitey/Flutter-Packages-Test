@@ -13,3 +13,8 @@ void showSnackBar(BuildContext context, String message) {
       behavior: SnackBarBehavior.floating,
     ));
 }
+
+// value setters
+void setLoading(ValueNotifier<bool> isLoading, bool value) {
+  isLoading.value = value;
+}
