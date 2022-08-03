@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel with ChangeNotifier {
   final RequstApi _api = RequstApi();
@@ -12,7 +13,8 @@ class AuthViewModel with ChangeNotifier {
         'password': password,
       });
 
-      print(result);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
 
       // notifyListeners();
     } on Exception {
