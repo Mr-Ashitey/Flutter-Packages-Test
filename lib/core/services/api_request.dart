@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -13,11 +15,11 @@ class RequstApi {
   }
 
   // get endpoint
-  Future<Response> get(String endpoint) async {
+  Future<Response> get(String endpoint, [queryParameters]) async {
     Response response;
 
     try {
-      response = await _dio.get(endpoint);
+      response = await _dio.get(endpoint, queryParameters: queryParameters);
 
       return response;
     } on DioError catch (e) {
@@ -30,8 +32,12 @@ class RequstApi {
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
-        debugPrint(e.message);
-        throw Failure(errorResponse: e.message);
+        debugPrint(
+            e.message is SocketException ? 'Connection Problem' : 'Unknown');
+        throw Failure(
+            errorResponse: e.message is SocketException
+                ? 'Connection Problem'
+                : 'Unknown');
       }
     }
   }
@@ -55,7 +61,10 @@ class RequstApi {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
         debugPrint(e.message);
-        throw Failure(errorResponse: e.message);
+        throw Failure(
+            errorResponse: e.message is SocketException
+                ? 'Connection Problem'
+                : 'Unknown');
       }
     }
   }
@@ -74,12 +83,15 @@ class RequstApi {
       if (e.response != null) {
         debugPrint(e.response!.data['error']);
         debugPrint(e.response!.requestOptions.toString());
-        throw Exception(e.response!.data['error']);
+        throw Failure(errorResponse: e.response!.data['error']);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
         debugPrint(e.message);
-        throw Exception(e.message);
+        throw Failure(
+            errorResponse: e.message is SocketException
+                ? 'Connection Problem'
+                : 'Unknown');
       }
     }
   }
