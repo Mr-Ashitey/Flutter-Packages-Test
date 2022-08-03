@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+import 'api_status.dart';
+
 class RequstApi {
   late Dio _dio;
   final _baseUrl = "https://reqres.in";
@@ -24,12 +26,12 @@ class RequstApi {
       if (e.response != null) {
         debugPrint(e.response!.data['error']);
         debugPrint(e.response!.requestOptions.toString());
-        throw Exception(e.response!.data['error']);
+        throw Failure(errorResponse: e.response!.data['error']);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
         debugPrint(e.message);
-        throw Exception(e.message);
+        throw Failure(errorResponse: e.message);
       }
     }
   }
@@ -48,12 +50,12 @@ class RequstApi {
       if (e.response != null) {
         debugPrint(e.response!.data['error']);
         debugPrint(e.response!.requestOptions.toString());
-        throw Exception(e.response!.data['error']);
+        throw Failure(errorResponse: e.response!.data['error']);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
         debugPrint(e.message);
-        throw Exception(e.message);
+        throw Failure(errorResponse: e.message);
       }
     }
   }

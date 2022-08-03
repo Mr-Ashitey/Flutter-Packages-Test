@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
+import 'package:packages_flutter/core/services/api_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel with ChangeNotifier {
@@ -14,11 +15,10 @@ class AuthViewModel with ChangeNotifier {
       });
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', result.data['token']);
       await prefs.setBool('isLoggedIn', true);
-
-      // notifyListeners();
-    } on Exception {
-      rethrow;
+    } on Failure catch (e) {
+      throw e.errorResponse!;
     }
   }
 
@@ -29,8 +29,8 @@ class AuthViewModel with ChangeNotifier {
         'email': email,
         'password': password,
       });
-    } on Exception {
-      rethrow;
+    } on Failure catch (e) {
+      throw e.errorResponse!;
     }
   }
 }
