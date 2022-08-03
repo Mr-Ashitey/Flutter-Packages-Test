@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '/core/viewModels/users_view_model.dart';
 
 import '../../../../core/models/user_model.dart';
@@ -13,8 +14,11 @@ class Users extends StatelessWidget {
         future: UsersViewModel().getUsers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: SpinKitDoubleBounce(
+                color: Theme.of(context).primaryColor,
+                size: 50.0,
+              ),
             );
           }
 
