@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 const String loginRoute = '/login';
 const String registerRoute = '/register';
+const String homeRoute = '/home';
 
 // scaffold messager alerts
 void showSnackBar(BuildContext context, String message, String type) {
