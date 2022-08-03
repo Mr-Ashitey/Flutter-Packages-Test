@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
@@ -36,6 +38,8 @@ class Login extends StatelessWidget {
             const SizedBox(height: 20),
             TextField(
               controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 filled: true,
@@ -44,7 +48,9 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextField(
+              obscureText: true,
               controller: passwordController,
+              textInputAction: TextInputAction.done,
               decoration: const InputDecoration(
                 labelText: 'Password',
                 filled: true,
@@ -58,8 +64,8 @@ class Login extends StatelessWidget {
                   return ElevatedButton(
                     onPressed: () async {
                       // extract email and password text into variables(email, password)
-                      String email = emailController.text,
-                          password = passwordController.text;
+                      String email = emailController.text.trim(),
+                          password = passwordController.text.trim();
                       if (email.isEmpty || password.isEmpty) {
                         showSnackBar(
                             context, 'All fields are required', 'error');
@@ -73,6 +79,7 @@ class Login extends StatelessWidget {
                         await AuthViewModel().login(email, password);
 
                         setLoading(isLoading, false);
+                        Navigator.pushReplacementNamed(context, homeRoute);
                       } catch (error) {
                         setLoading(isLoading, false);
                         showSnackBar(context, error.toString(), 'error');
