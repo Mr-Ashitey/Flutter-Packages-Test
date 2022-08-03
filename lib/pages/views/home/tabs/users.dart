@@ -41,6 +41,28 @@ class Users extends StatelessWidget {
                     borderSide: BorderSide(
                         color: Theme.of(context).primaryColor, width: 1)),
                 child: ListTile(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return AlertDialog(
+                            title: Image.network(
+                              user.avatar!,
+                              height: 100,
+                              width: 100,
+                            ),
+                            content: Text(user.email!),
+                            actions: [
+                              TextButton(
+                                child: const Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  },
                   leading: ClipOval(child: Image.network(user.avatar!)),
                   title: Text('${user.firstName!} ${user.lastName!}'),
                   subtitle: Text(user.email!),
