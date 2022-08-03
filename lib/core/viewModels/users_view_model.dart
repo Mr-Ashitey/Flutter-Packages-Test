@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-
 import '../models/user_model.dart';
 import '../services/api_request.dart';
 import '../services/api_status.dart';
 
-class UsersViewModel extends ChangeNotifier {
+class UsersViewModel {
   final RequstApi _api = RequstApi();
 
   // get list of users
