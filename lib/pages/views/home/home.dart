@@ -36,7 +36,8 @@ class Home extends StatelessWidget {
                               },
                             ),
                             TextButton(
-                              child: const Text('Yes'),
+                              child: const Text('Yes',
+                                  style: TextStyle(color: Colors.red)),
                               onPressed: () async {
                                 await AuthViewModel().logout();
                                 Navigator.pushReplacementNamed(
