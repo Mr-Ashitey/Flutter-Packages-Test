@@ -33,4 +33,11 @@ class AuthViewModel with ChangeNotifier {
       throw e.errorResponse!;
     }
   }
+
+  // logout function
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', false);
+    await prefs.remove('token');
+  }
 }
