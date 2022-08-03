@@ -38,6 +38,8 @@ class Register extends StatelessWidget {
             const SizedBox(height: 20),
             TextField(
               controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 filled: true,
@@ -46,7 +48,9 @@ class Register extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextField(
+              obscureText: true,
               controller: passwordController,
+              textInputAction: TextInputAction.done,
               decoration: const InputDecoration(
                 labelText: 'Password',
                 filled: true,
@@ -60,8 +64,8 @@ class Register extends StatelessWidget {
                 return ElevatedButton(
                   onPressed: () async {
                     // extract email and password text into variables(email, password)
-                    String email = emailController.text,
-                        password = passwordController.text;
+                    String email = emailController.text.trim(),
+                        password = passwordController.text.trim();
                     if (email.isEmpty || password.isEmpty) {
                       showSnackBar(context, 'All fields are required', 'error');
                       return;
@@ -82,6 +86,8 @@ class Register extends StatelessWidget {
                           'success');
                       Navigator.of(context).pushReplacementNamed(loginRoute);
                     } catch (error) {
+                      emailController.clear();
+                      passwordController.clear();
                       setLoading(isLoading, false);
                       showSnackBar(context, error.toString(), 'error');
                     }
