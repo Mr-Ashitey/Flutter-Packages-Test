@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/services/api_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthViewModel with ChangeNotifier {
+class AuthViewModel {
   final RequstApi _api = RequstApi();
 
   // login function
