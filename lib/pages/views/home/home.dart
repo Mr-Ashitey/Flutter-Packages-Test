@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
+import 'package:packages_flutter/pages/views/home/tabs/resources.dart';
 import 'package:packages_flutter/pages/views/home/tabs/users.dart';
 
 import '../../../constants.dart';
@@ -56,10 +57,7 @@ class Home extends StatelessWidget {
           ),
         ),
         body: const TabBarView(
-          children: [
-            Users(),
-            Icon(Icons.directions_transit),
-          ],
+          children: [Users(), Resources()],
         ),
       ),
     );
