@@ -32,12 +32,13 @@ class RequstApi {
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         debugPrint(e.requestOptions.toString());
-        debugPrint(
-            e.message is SocketException ? 'Connection Problem' : 'Unknown');
+        debugPrint(e.message is SocketException
+            ? 'Connection Problem'
+            : 'Unknown Error');
         throw Failure(
             errorResponse: e.message is SocketException
                 ? 'Connection Problem'
-                : 'Unknown');
+                : 'Unknown Error');
       }
     }
   }
@@ -64,7 +65,7 @@ class RequstApi {
         throw Failure(
             errorResponse: e.message is SocketException
                 ? 'Connection Problem'
-                : 'Unknown');
+                : 'Unknown Error');
       }
     }
   }
@@ -91,7 +92,7 @@ class RequstApi {
         throw Failure(
             errorResponse: e.message is SocketException
                 ? 'Connection Problem'
-                : 'Unknown');
+                : 'Unknown Error');
       }
     }
   }
