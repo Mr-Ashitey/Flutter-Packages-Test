@@ -5,11 +5,11 @@ import 'package:flutter/foundation.dart';
 
 import 'api_status.dart';
 
-class RequstApi {
+class RequestApi {
   late Dio _dio;
   final _baseUrl = "https://reqres.in";
 
-  RequstApi() {
+  RequestApi() {
     _dio = Dio();
     _dio.options.baseUrl = _baseUrl;
   }

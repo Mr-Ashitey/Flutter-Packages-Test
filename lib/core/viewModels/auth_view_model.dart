@@ -3,7 +3,7 @@ import 'package:packages_flutter/core/services/api_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel {
-  final RequstApi _api = RequstApi();
+  final RequestApi _api = RequestApi();
 
   // login function
   Future<void> login(String email, String password) async {

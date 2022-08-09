@@ -3,7 +3,7 @@ import '../services/api_request.dart';
 import '../services/api_status.dart';
 
 class UsersViewModel {
-  final RequstApi _api = RequstApi();
+  final RequestApi _api = RequestApi();
 
   // get list of users
   Future<List<User>> getUsers() async {

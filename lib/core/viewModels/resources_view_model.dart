@@ -4,7 +4,7 @@ import '../services/api_request.dart';
 import '../services/api_status.dart';
 
 class ResourcesViewModel {
-  final RequstApi _api = RequstApi();
+  final RequestApi _api = RequestApi();
 
   // get list of resources
   Future<List<Resource>> getResources() async {
