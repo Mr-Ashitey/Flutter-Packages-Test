@@ -47,7 +47,7 @@ class APIMocks {
 
   /*
   ---------------------------------------
-    Successful Api Returns
+   Auth Successful Api Returns
   ---------------------------------------
   */
 
@@ -71,7 +71,7 @@ class APIMocks {
 
   /*
   ---------------------------------------
-    Unsuccessful Api Returns
+    Auth Unsuccessful Api Returns
   ---------------------------------------
   */
 
@@ -93,6 +93,44 @@ class APIMocks {
           errorMock(
               {'error': 'Note: only defined users succeed registration'})),
       data: userCredentials,
+    );
+  }
+
+  /*
+  ---------------------------------------
+    Resources Successful Api Returns
+  ---------------------------------------
+  */
+  void resourcesApiSuccessMock() {
+    dioAdapter.onGet(
+      '/api/unknown',
+      (server) => server.reply(200, {
+        "page": 1,
+        "per_page": 6,
+        "total": 12,
+        "total_pages": 2,
+        "data": [
+          {
+            "id": 1,
+            "name": "cerulean",
+            "year": 2000,
+            "color": "#98B2D1",
+            "pantone_value": "15-4020"
+          },
+        ],
+      }),
+    );
+  }
+
+  /*
+  ---------------------------------------
+    Resources Unsuccessful Api Returns
+  ---------------------------------------
+  */
+  void resourcesApiFailureMock() {
+    dioAdapter.onGet(
+      '/api/unknown',
+      (server) => server.throws(400, errorMock({'error': 'not found'})),
     );
   }
 }
