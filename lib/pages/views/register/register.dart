@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 
+import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
 
 class Register extends StatelessWidget {
@@ -75,7 +76,8 @@ class Register extends StatelessWidget {
                       setLoading(isLoading, true);
                       FocusManager.instance.primaryFocus!
                           .unfocus(); // unfocus keyboard
-                      await AuthViewModel().register(email, password);
+                      await AuthViewModel(RequestApi())
+                          .register(email, password);
 
                       setLoading(isLoading, false);
 

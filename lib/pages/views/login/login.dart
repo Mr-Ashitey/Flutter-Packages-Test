@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 
 import '../../widgets/motivational_quote.dart';
@@ -76,7 +77,8 @@ class Login extends StatelessWidget {
                         setLoading(isLoading, true);
                         FocusManager.instance.primaryFocus!
                             .unfocus(); // unfocus keyboard
-                        await AuthViewModel().login(email, password);
+                        await AuthViewModel(RequestApi())
+                            .login(email, password);
 
                         setLoading(isLoading, false);
                         Navigator.pushReplacementNamed(context, homeRoute);
