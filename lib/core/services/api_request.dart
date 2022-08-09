@@ -14,6 +14,9 @@ class RequestApi {
     _dio.options.baseUrl = _baseUrl;
   }
 
+  // named constructor for testing
+  RequestApi.test({required Dio dio}) : _dio = dio;
+
   // get endpoint
   Future<Response> get(String endpoint, [queryParameters]) async {
     Response response;
