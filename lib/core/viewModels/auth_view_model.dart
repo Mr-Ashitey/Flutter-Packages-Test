@@ -3,12 +3,14 @@ import 'package:packages_flutter/core/services/api_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel {
-  final RequestApi _api = RequestApi();
+  final RequestApi api;
+
+  AuthViewModel(this.api);
 
   // login function
   Future<void> login(String email, String password) async {
     try {
-      final result = await _api.post('/api/login', body: {
+      final result = await api.post('/api/login', body: {
         'email': email,
         'password': password,
       });
@@ -24,7 +26,7 @@ class AuthViewModel {
   // register function
   Future<void> register(String email, String password) async {
     try {
-      await _api.post('/api/register', body: {
+      await api.post('/api/register', body: {
         'email': email,
         'password': password,
       });
