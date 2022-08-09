@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:packages_flutter/core/services/api_request.dart';
 import '/core/viewModels/users_view_model.dart';
 
 import '../../../../core/models/user_model.dart';
@@ -11,7 +12,7 @@ class Users extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<User>>(
-        future: UsersViewModel().getUsers(),
+        future: UsersViewModel(RequestApi()).getUsers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

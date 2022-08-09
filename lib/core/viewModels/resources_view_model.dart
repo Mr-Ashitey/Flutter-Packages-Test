@@ -4,12 +4,14 @@ import '../services/api_request.dart';
 import '../services/api_status.dart';
 
 class ResourcesViewModel {
-  final RequestApi _api = RequestApi();
+  final RequestApi api;
+
+  ResourcesViewModel(this.api);
 
   // get list of resources
   Future<List<Resource>> getResources() async {
     try {
-      final result = await _api.get('/api/unknown');
+      final result = await api.get('/api/unknown');
 
       return result.data['data']
           .map<Resource>((resource) => Resource.fromJson(resource))

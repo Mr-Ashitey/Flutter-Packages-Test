@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
+import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 
 class Resources extends StatelessWidget {
@@ -10,7 +11,7 @@ class Resources extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Resource>>(
-        future: ResourcesViewModel().getResources(),
+        future: ResourcesViewModel(RequestApi()).getResources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
