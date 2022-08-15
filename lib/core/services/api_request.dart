@@ -17,6 +17,27 @@ class RequestApi {
   // named constructor for testing
   RequestApi.test({required Dio dio}) : _dio = dio;
 
+  // handle error response
+  Failure _handleError(DioError error) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx and is also not 304.
+    if (error.response != null) {
+      debugPrint(error.response!.data['error']);
+      debugPrint(error.response!.requestOptions.toString());
+      return Failure(errorResponse: error.response!.data['error']);
+    } else {
+      // Something happened in setting up or sending the request that triggered an Error
+      debugPrint(error.requestOptions.toString());
+      debugPrint(error.message is SocketException
+          ? 'Connection Problem'
+          : 'Unknown Error');
+      return Failure(
+          errorResponse: error.message is SocketException
+              ? 'Connection Problem'
+              : 'Unknown Error');
+    }
+  }
+
   // get endpoint
   Future<Response> get(String endpoint, [queryParameters]) async {
     Response response;
@@ -26,23 +47,7 @@ class RequestApi {
 
       return response;
     } on DioError catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      if (e.response != null) {
-        debugPrint(e.response!.data['error']);
-        debugPrint(e.response!.requestOptions.toString());
-        throw Failure(errorResponse: e.response!.data['error']);
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        debugPrint(e.requestOptions.toString());
-        debugPrint(e.message is SocketException
-            ? 'Connection Problem'
-            : 'Unknown Error');
-        throw Failure(
-            errorResponse: e.message is SocketException
-                ? 'Connection Problem'
-                : 'Unknown Error');
-      }
+      throw _handleError(e);
     }
   }
 
@@ -55,21 +60,7 @@ class RequestApi {
 
       return response;
     } on DioError catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      if (e.response != null) {
-        debugPrint(e.response!.data['error']);
-        debugPrint(e.response!.requestOptions.toString());
-        throw Failure(errorResponse: e.response!.data['error']);
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        debugPrint(e.requestOptions.toString());
-        debugPrint(e.message);
-        throw Failure(
-            errorResponse: e.message is SocketException
-                ? 'Connection Problem'
-                : 'Unknown Error');
-      }
+      throw _handleError(e);
     }
   }
 
@@ -82,21 +73,7 @@ class RequestApi {
 
       return response;
     } on DioError catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      if (e.response != null) {
-        debugPrint(e.response!.data['error']);
-        debugPrint(e.response!.requestOptions.toString());
-        throw Failure(errorResponse: e.response!.data['error']);
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        debugPrint(e.requestOptions.toString());
-        debugPrint(e.message);
-        throw Failure(
-            errorResponse: e.message is SocketException
-                ? 'Connection Problem'
-                : 'Unknown Error');
-      }
+      throw _handleError(e);
     }
   }
 }
