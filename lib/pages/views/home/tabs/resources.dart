@@ -14,9 +14,9 @@ class Resources extends StatelessWidget {
         future: ResourcesViewModel(RequestApi()).getResources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
+                color: Colors.black,
                 size: 50.0,
               ),
             );

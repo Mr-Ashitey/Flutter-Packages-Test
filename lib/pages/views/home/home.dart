@@ -19,6 +19,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
+          backgroundColor: Colors.black,
           actions: [
             IconButton(
                 onPressed: () async {

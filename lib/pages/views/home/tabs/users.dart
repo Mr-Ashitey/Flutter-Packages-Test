@@ -15,9 +15,9 @@ class Users extends StatelessWidget {
         future: UsersViewModel(RequestApi()).getUsers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
+                color: Colors.black,
                 size: 50.0,
               ),
             );
@@ -35,12 +35,12 @@ class Users extends StatelessWidget {
               final User user = snapshot.data![index];
               return Card(
                 elevation: 8,
-                shadowColor: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
                 margin: const EdgeInsets.all(20),
                 shape: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1)),
+                    borderSide:
+                        const BorderSide(color: Colors.black, width: 1)),
                 child: ListTile(
                   onTap: () {
                     showDialog(

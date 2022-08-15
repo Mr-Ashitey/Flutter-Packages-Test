@@ -81,6 +81,11 @@ class Login extends StatelessWidget {
                             .login(email, password);
 
                         setLoading(isLoading, false);
+                        // dispose controllers
+                        emailController.dispose();
+                        passwordController.dispose();
+
+                        // navigate to home page
                         Navigator.pushReplacementNamed(context, homeRoute);
                       } catch (error) {
                         setLoading(isLoading, false);
