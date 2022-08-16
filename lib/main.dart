@@ -6,6 +6,8 @@ import 'package:packages_flutter/pages/views/login/login.dart';
 import 'package:packages_flutter/pages/views/register/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/services/api_request.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,7 +23,7 @@ Future<void> main() async {
       ),
       initialRoute: isLoggedIn ? homeRoute : loginRoute,
       routes: {
-        Login.routeName: (context) => const Login(),
+        Login.routeName: (context) => Login(requestApi: RequestApi()),
         Register.routeName: (context) => const Register(),
         Home.routeName: (context) => const Home(),
       },

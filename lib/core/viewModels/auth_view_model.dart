@@ -38,7 +38,7 @@ class AuthViewModel {
   // logout function
   Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false);
+    await prefs.remove('isLoggedIn');
     await prefs.remove('token');
   }
 }

@@ -8,7 +8,8 @@ import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import '../../widgets/motivational_quote.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  final RequestApi requestApi;
+  const Login({Key? key, required this.requestApi}) : super(key: key);
 
   static String routeName = loginRoute;
 
@@ -61,7 +62,7 @@ class Login extends StatelessWidget {
             const SizedBox(height: 20),
             ValueListenableBuilder(
                 valueListenable: isLoading,
-                builder: (context, value, child) {
+                builder: (_, value, __) {
                   return ElevatedButton(
                     onPressed: () async {
                       // extract email and password text into variables(email, password)
@@ -77,8 +78,7 @@ class Login extends StatelessWidget {
                         setLoading(isLoading, true);
                         FocusManager.instance.primaryFocus!
                             .unfocus(); // unfocus keyboard
-                        await AuthViewModel(RequestApi())
-                            .login(email, password);
+                        await AuthViewModel(requestApi).login(email, password);
 
                         setLoading(isLoading, false);
                         // dispose controllers
