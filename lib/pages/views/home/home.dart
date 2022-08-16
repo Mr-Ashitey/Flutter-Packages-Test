@@ -53,6 +53,7 @@ class Home extends StatelessWidget {
                 icon: const Icon(Icons.logout_rounded))
           ],
           bottom: const TabBar(
+            indicatorColor: Colors.white,
             tabs: [
               Tab(icon: Icon(Icons.people_alt_rounded)),
               Tab(icon: Icon(Icons.inventory_rounded)),
