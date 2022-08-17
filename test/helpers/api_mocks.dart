@@ -40,8 +40,8 @@ class APIMocks {
   */
   static void mockSharedPreferences() {
     SharedPreferences.setMockInitialValues({
-      'token': accessToken['token'],
       'isLoggedIn': true,
+      'token': accessToken['token'],
     }); //set values here
   }
 
@@ -56,7 +56,7 @@ class APIMocks {
     dioAdapter.onPost(
       '/api/login',
       (server) => server.reply(200, accessToken),
-      data: userCredentials,
+      data: Matchers.any,
     );
   }
 
@@ -65,7 +65,7 @@ class APIMocks {
     dioAdapter.onPost(
       '/api/register',
       (server) => server.reply(200, {"id": 4, "token": "gfiafiugafiua"}),
-      data: userCredentials,
+      data: Matchers.any,
     );
   }
 
@@ -80,7 +80,7 @@ class APIMocks {
     dioAdapter.onPost(
       '/api/login',
       (server) => server.throws(400, errorMock({'error': 'user not found'})),
-      data: userCredentials,
+      data: Matchers.any,
     );
   }
 
@@ -92,7 +92,7 @@ class APIMocks {
           400,
           errorMock(
               {'error': 'Note: only defined users succeed registration'})),
-      data: userCredentials,
+      data: Matchers.any,
     );
   }
 
@@ -130,6 +130,58 @@ class APIMocks {
   void resourcesApiFailureMock() {
     dioAdapter.onGet(
       '/api/unknown',
+      (server) => server.throws(400, errorMock({'error': 'not found'})),
+    );
+  }
+
+  /*
+  ---------------------------------------
+    Users Successful Api Returns
+  ---------------------------------------
+  */
+  void usersApiSuccessMock() {
+    dioAdapter.onGet(
+      '/api/users?page=1',
+      (server) => server.reply(200, {
+        "page": 2,
+        "per_page": 6,
+        "total": 12,
+        "total_pages": 2,
+        "data": [
+          {
+            "id": 7,
+            "email": "michael.lawson@reqres.in",
+            "first_name": "Michael",
+            "last_name": "Lawson",
+            "avatar": "https://reqres.in/img/faces/7-image.jpg"
+          },
+          {
+            "id": 8,
+            "email": "lindsay.ferguson@reqres.in",
+            "first_name": "Lindsay",
+            "last_name": "Ferguson",
+            "avatar": "https://reqres.in/img/faces/8-image.jpg"
+          },
+          {
+            "id": 9,
+            "email": "tobias.funke@reqres.in",
+            "first_name": "Tobias",
+            "last_name": "Funke",
+            "avatar": "https://reqres.in/img/faces/9-image.jpg"
+          },
+        ],
+      }),
+    );
+  }
+
+  /*
+  ---------------------------------------
+    Users Unsuccessful Api Returns
+  ---------------------------------------
+  */
+  void usersApiFailureMock() {
+    dioAdapter.onGet(
+      '/api/users?page=1',
       (server) => server.throws(400, errorMock({'error': 'not found'})),
     );
   }
