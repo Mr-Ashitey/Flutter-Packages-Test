@@ -42,8 +42,8 @@ class Home extends StatelessWidget {
                                   style: TextStyle(color: Colors.red)),
                               onPressed: () async {
                                 await AuthViewModel(RequestApi()).logout();
-                                Navigator.pushReplacementNamed(
-                                    context, loginRoute);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, loginRoute, (route) => false);
                               },
                             ),
                           ],
