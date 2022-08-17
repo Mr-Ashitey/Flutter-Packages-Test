@@ -1,38 +1,26 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 
 import '../../widgets/motivational_quote.dart';
 
-class Login extends StatefulWidget {
+class Login extends HookWidget {
   final RequestApi? requestApi;
   const Login({Key? key, required this.requestApi}) : super(key: key);
 
-  static String routeName = loginRoute;
-
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final ValueNotifier<bool> isLoading = ValueNotifier(false);
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    super.dispose();
-  }
+  static const routeName = loginRoute;
 
   @override
   Widget build(BuildContext context) {
-    final AuthViewModel authViewModel = AuthViewModel(widget.requestApi!);
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final ValueNotifier<bool> isLoading = ValueNotifier(false);
+
+    final AuthViewModel authViewModel = AuthViewModel(requestApi!);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),

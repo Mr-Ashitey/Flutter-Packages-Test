@@ -1,24 +1,25 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 
 import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
 
-class Register extends StatelessWidget {
+class Register extends HookWidget {
   final RequestApi? requestApi;
-
-  Register({Key? key, this.requestApi}) : super(key: key);
+  const Register({Key? key, this.requestApi}) : super(key: key);
 
   static String routeName = registerRoute;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final ValueNotifier<bool> isLoading = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final ValueNotifier<bool> isLoading = ValueNotifier(false);
+
     final AuthViewModel authViewModel = AuthViewModel(requestApi!);
 
     return Scaffold(
