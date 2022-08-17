@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MotivationalQuote extends StatelessWidget {
-  const MotivationalQuote({
-    Key? key,
-  }) : super(key: key);
+  const MotivationalQuote([Key? key]) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
