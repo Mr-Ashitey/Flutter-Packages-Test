@@ -45,7 +45,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
   });
   testWidgets('Test Login Screen with Success', (WidgetTester tester) async {
-    await tester.pumpApp(Login(requestApi: mockRequestApi), null);
+    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
     await tester.pump();
 
     apiMocks.loginApiSuccessMock();
