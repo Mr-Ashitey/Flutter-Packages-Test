@@ -25,7 +25,7 @@ Future<void> main() async {
       routes: {
         Login.routeName: (context) => Login(requestApi: RequestApi()),
         Register.routeName: (context) => Register(requestApi: RequestApi()),
-        Home.routeName: (context) => const Home(),
+        Home.routeName: (context) => Home(requestApi: RequestApi()),
       },
     ),
   );
