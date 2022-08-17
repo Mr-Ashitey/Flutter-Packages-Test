@@ -8,15 +8,18 @@ import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
 
 class Register extends StatelessWidget {
-  const Register({Key? key}) : super(key: key);
+  final RequestApi? requestApi;
+
+  Register({Key? key, this.requestApi}) : super(key: key);
 
   static String routeName = registerRoute;
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final ValueNotifier<bool> isLoading = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    ValueNotifier<bool> isLoading = ValueNotifier(false);
+    final AuthViewModel authViewModel = AuthViewModel(requestApi!);
 
     return Scaffold(
       body: Padding(
@@ -38,6 +41,7 @@ class Register extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              key: const Key('email'),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -49,6 +53,7 @@ class Register extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextField(
+              key: const Key('password'),
               obscureText: true,
               controller: passwordController,
               textInputAction: TextInputAction.done,
@@ -76,8 +81,7 @@ class Register extends StatelessWidget {
                       setLoading(isLoading, true);
                       FocusManager.instance.primaryFocus!
                           .unfocus(); // unfocus keyboard
-                      await AuthViewModel(RequestApi())
-                          .register(email, password);
+                      await authViewModel.register(email, password);
 
                       setLoading(isLoading, false);
 
