@@ -36,7 +36,7 @@ void main() {
     test("log out function", () async {
       await authViewModel.logout(); // call log out function
 
-      expect(mockedPrefs.getBool("isLoggedIn"), false);
+      expect(mockedPrefs.getBool("isLoggedIn"), isNull);
       expect(mockedPrefs.getString("token"), isNull);
     });
   });
