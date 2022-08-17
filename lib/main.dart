@@ -24,7 +24,7 @@ Future<void> main() async {
       initialRoute: isLoggedIn ? homeRoute : loginRoute,
       routes: {
         Login.routeName: (context) => Login(requestApi: RequestApi()),
-        Register.routeName: (context) => const Register(),
+        Register.routeName: (context) => Register(requestApi: RequestApi()),
         Home.routeName: (context) => const Home(),
       },
     ),
