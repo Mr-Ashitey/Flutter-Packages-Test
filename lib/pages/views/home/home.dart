@@ -9,7 +9,9 @@ import '../../../constants.dart';
 import '../../../core/services/api_request.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  final RequestApi? requestApi;
+
+  const Home({Key? key, this.requestApi}) : super(key: key);
 
   static const routeName = homeRoute;
   @override
@@ -41,7 +43,7 @@ class Home extends StatelessWidget {
                               child: const Text('Yes',
                                   style: TextStyle(color: Colors.red)),
                               onPressed: () async {
-                                await AuthViewModel(RequestApi()).logout();
+                                await AuthViewModel(requestApi!).logout();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, loginRoute, (route) => false);
                               },
@@ -60,8 +62,11 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [Users(), Resources()],
+        body: TabBarView(
+          children: [
+            Users(requestApi: requestApi!),
+            Resources(requestApi: requestApi!)
+          ],
         ),
       ),
     );

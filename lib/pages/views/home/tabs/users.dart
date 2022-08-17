@@ -6,13 +6,17 @@ import '/core/viewModels/users_view_model.dart';
 import '../../../../core/models/user_model.dart';
 
 class Users extends StatelessWidget {
-  const Users({Key? key}) : super(key: key);
+  final RequestApi? requestApi;
+
+  const Users({Key? key, this.requestApi}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final UsersViewModel usersViewModel = UsersViewModel(requestApi!);
+
     return Scaffold(
       body: FutureBuilder<List<User>>(
-        future: UsersViewModel(RequestApi()).getUsers(),
+        future: usersViewModel.getUsers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -18,7 +18,7 @@ extension PumpApp on WidgetTester {
         routes: {
           Login.routeName: (context) => Login(requestApi: requestApi!),
           Register.routeName: (context) => Register(requestApi: requestApi!),
-          Home.routeName: (context) => const Home(),
+          Home.routeName: (context) => Home(requestApi: requestApi!),
         },
       ),
     );

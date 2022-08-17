@@ -5,13 +5,17 @@ import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 
 class Resources extends StatelessWidget {
-  const Resources({Key? key}) : super(key: key);
+  final RequestApi? requestApi;
+
+  const Resources({Key? key, this.requestApi}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ResourcesViewModel resourcesViewModel =
+        ResourcesViewModel(requestApi!);
     return Scaffold(
       body: FutureBuilder<List<Resource>>(
-        future: ResourcesViewModel(RequestApi()).getResources(),
+        future: resourcesViewModel.getResources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
