@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/foundation.dart';
 
 import 'api_status.dart';
@@ -12,6 +13,16 @@ class RequestApi {
   RequestApi() {
     _dio = Dio();
     _dio.options.baseUrl = _baseUrl;
+    _dio.interceptors.add(RetryInterceptor(
+      dio: _dio,
+      logPrint: print, // specify log function
+      retries: 3, // retry count
+      retryDelays: const [
+        Duration(seconds: 1), // wait 1 sec before first retry
+        Duration(seconds: 2), // wait 2 sec before second retry
+        Duration(seconds: 3), // wait 3 sec before third retry
+      ],
+    ));
   }
 
   // named constructor for testing
