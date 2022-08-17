@@ -7,18 +7,32 @@ import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 
 import '../../widgets/motivational_quote.dart';
 
-class Login extends StatelessWidget {
-  final RequestApi requestApi;
+class Login extends StatefulWidget {
+  final RequestApi? requestApi;
   const Login({Key? key, required this.requestApi}) : super(key: key);
 
   static String routeName = loginRoute;
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    ValueNotifier<bool> isLoading = ValueNotifier(false);
+  State<Login> createState() => _LoginState();
+}
 
+class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final ValueNotifier<bool> isLoading = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = AuthViewModel(widget.requestApi!);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -39,6 +53,7 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              key: const Key('email'),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -50,6 +65,7 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextField(
+              key: const Key('password'),
               obscureText: true,
               controller: passwordController,
               textInputAction: TextInputAction.done,
@@ -78,12 +94,9 @@ class Login extends StatelessWidget {
                         setLoading(isLoading, true);
                         FocusManager.instance.primaryFocus!
                             .unfocus(); // unfocus keyboard
-                        await AuthViewModel(requestApi).login(email, password);
+                        await authViewModel.login(email, password);
 
                         setLoading(isLoading, false);
-                        // dispose controllers
-                        emailController.dispose();
-                        passwordController.dispose();
 
                         // navigate to home page
                         Navigator.pushReplacementNamed(context, homeRoute);
