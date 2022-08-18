@@ -18,7 +18,7 @@ class Register extends HookWidget {
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final ValueNotifier<bool> isLoading = ValueNotifier(false);
+    final ValueNotifier<bool> isLoading = useValueNotifier(false);
 
     final AuthViewModel authViewModel = AuthViewModel(requestApi!);
 
