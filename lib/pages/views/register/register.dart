@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
@@ -16,10 +17,9 @@ class Register extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final ValueNotifier<bool> isLoading = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
-    final AuthViewModel authViewModel = AuthViewModel(requestApi!);
+    final authViewModel = context.watch<AuthViewModel>();
 
     return Scaffold(
       body: Padding(
@@ -64,60 +64,51 @@ class Register extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ValueListenableBuilder(
-              valueListenable: isLoading,
-              builder: (context, bool value, child) {
-                return ElevatedButton(
-                  onPressed: () async {
-                    // extract email and password text into variables(email, password)
-                    String email = emailController.text.trim(),
-                        password = passwordController.text.trim();
-                    if (email.isEmpty || password.isEmpty) {
-                      showSnackBar(context, 'All fields are required', 'error');
-                      return;
-                    }
+            ElevatedButton(
+              onPressed: () async {
+                // extract email and password text into variables(email, password)
+                String email = emailController.text.trim(),
+                    password = passwordController.text.trim();
+                if (email.isEmpty || password.isEmpty) {
+                  showSnackBar(context, 'All fields are required', 'error');
+                  return;
+                }
 
-                    try {
-                      setLoading(isLoading, true);
-                      FocusManager.instance.primaryFocus!
-                          .unfocus(); // unfocus keyboard
-                      await authViewModel.register(email, password);
+                try {
+                  FocusManager.instance.primaryFocus!
+                      .unfocus(); // unfocus keyboard
+                  await authViewModel.register(email, password);
 
-                      setLoading(isLoading, false);
-
-                      // show success alert/snackbar and navigate to login screen to allow user to log into the app
-                      showSnackBar(
-                          context,
-                          'Registration successful: Login to continue',
-                          'success');
-                      Navigator.of(context).pushReplacementNamed(loginRoute);
-                    } catch (error) {
-                      emailController.clear();
-                      passwordController.clear();
-                      setLoading(isLoading, false);
-                      showSnackBar(context, error.toString(), 'error');
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(primary: Colors.black),
-                  child: value == true
-                      ? const SizedBox(
-                          height: 10,
-                          width: 10,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3,
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ),
-                        )
-                      : const Text(
-                          'Register',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                );
+                  // show success alert/snackbar and navigate to login screen to allow user to log into the app
+                  showSnackBar(context,
+                      'Registration successful: Login to continue', 'success');
+                  Navigator.of(context).pushReplacementNamed(loginRoute);
+                } catch (error) {
+                  emailController.clear();
+                  passwordController.clear();
+                  showSnackBar(context, error.toString(), 'error');
+                }
               },
+              style: ElevatedButton.styleFrom(primary: Colors.black),
+              child: authViewModel.state == ViewState.Busy
+                  ? const SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
+                  : const Text(
+                      'Register',
+                      style: TextStyle(fontSize: 20),
+                    ),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, loginRoute);
+                authViewModel.state == ViewState.Busy
+                    ? null
+                    : Navigator.pushReplacementNamed(context, loginRoute);
               },
               style: TextButton.styleFrom(primary: Colors.black),
               child: const Text(

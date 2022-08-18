@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/motivational_quote.dart';
 
@@ -20,7 +21,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final ValueNotifier<bool> isLoading = ValueNotifier(false);
 
   @override
   void dispose() {
@@ -32,7 +32,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthViewModel authViewModel = AuthViewModel(widget.requestApi!);
+    final authViewModel = context.watch<AuthViewModel>();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -76,54 +77,47 @@ class _LoginState extends State<Login> {
               ),
             ),
             const SizedBox(height: 20),
-            ValueListenableBuilder(
-                valueListenable: isLoading,
-                builder: (_, value, __) {
-                  return ElevatedButton(
-                    onPressed: () async {
-                      // extract email and password text into variables(email, password)
-                      String email = emailController.text.trim(),
-                          password = passwordController.text.trim();
-                      if (email.isEmpty || password.isEmpty) {
-                        showSnackBar(
-                            context, 'All fields are required', 'error');
-                        return;
-                      }
+            ElevatedButton(
+              onPressed: () async {
+                // extract email and password text into variables(email, password)
+                String email = emailController.text.trim(),
+                    password = passwordController.text.trim();
+                if (email.isEmpty || password.isEmpty) {
+                  showSnackBar(context, 'All fields are required', 'error');
+                  return;
+                }
 
-                      try {
-                        setLoading(isLoading, true);
-                        FocusManager.instance.primaryFocus!
-                            .unfocus(); // unfocus keyboard
-                        await authViewModel.login(email, password);
+                try {
+                  FocusManager.instance.primaryFocus!
+                      .unfocus(); // unfocus keyboard
+                  await authViewModel.login(email, password);
 
-                        setLoading(isLoading, false);
-
-                        // navigate to home page
-                        Navigator.pushReplacementNamed(context, homeRoute);
-                      } catch (error) {
-                        setLoading(isLoading, false);
-                        showSnackBar(context, error.toString(), 'error');
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
-                    child: value == true
-                        ? const SizedBox(
-                            height: 10,
-                            width: 10,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
-                            ),
-                          )
-                        : const Text(
-                            'Login',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                  );
-                }),
+                  // navigate to home page
+                  Navigator.pushReplacementNamed(context, homeRoute);
+                } catch (error) {
+                  showSnackBar(context, error.toString(), 'error');
+                }
+              },
+              style: ElevatedButton.styleFrom(primary: Colors.black),
+              child: authViewModel.state == ViewState.Busy
+                  ? const SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
+                  : const Text(
+                      'Login',
+                      style: TextStyle(fontSize: 20),
+                    ),
+            ),
             TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, registerRoute);
+                authViewModel.state == ViewState.Busy
+                    ? null
+                    : Navigator.pushReplacementNamed(context, registerRoute);
               },
               style: TextButton.styleFrom(primary: Colors.black),
               child: const Text(

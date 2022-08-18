@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:packages_flutter/pages/views/home/tabs/resources.dart';
 import 'package:packages_flutter/pages/views/home/tabs/users.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../core/services/api_request.dart';
@@ -43,7 +44,7 @@ class Home extends StatelessWidget {
                               child: const Text('Yes',
                                   style: TextStyle(color: Colors.red)),
                               onPressed: () async {
-                                await AuthViewModel(requestApi!).logout();
+                                await context.read<AuthViewModel>().logout();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, loginRoute, (route) => false);
                               },
