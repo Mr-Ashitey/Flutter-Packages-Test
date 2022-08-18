@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 import 'package:packages_flutter/core/viewModels/users_view_model.dart';
 import 'package:packages_flutter/pages/views/home/home.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: AuthViewModel(RequestApi())),
         ChangeNotifierProvider.value(value: UsersViewModel(RequestApi())),
         ChangeNotifierProvider.value(value: ResourcesViewModel(RequestApi())),
       ],
