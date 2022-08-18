@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:packages_flutter/core/services/api_request.dart';
-import '/core/viewModels/users_view_model.dart';
+import 'package:packages_flutter/core/viewModels/users_view_model.dart';
+
+import 'package:provider/provider.dart';
 
 import '../../../../core/models/user_model.dart';
 
 class Users extends StatelessWidget {
-  final RequestApi? requestApi;
-
-  const Users({Key? key, this.requestApi}) : super(key: key);
+  const Users({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final UsersViewModel usersViewModel = UsersViewModel(requestApi!);
+    final usersViewModel = context.read<UsersViewModel>();
 
     return Scaffold(
-      body: FutureBuilder<List<User>>(
+      body: FutureBuilder(
         future: usersViewModel.getUsers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -34,9 +33,9 @@ class Users extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: usersViewModel.users.length,
             itemBuilder: (context, index) {
-              final User user = snapshot.data![index];
+              final User user = usersViewModel.users[index];
               return Card(
                 elevation: 8,
                 shadowColor: Colors.black,

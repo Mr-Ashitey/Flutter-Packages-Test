@@ -62,11 +62,8 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            Users(requestApi: requestApi!),
-            Resources(requestApi: requestApi!)
-          ],
+        body: const TabBarView(
+          children: [Users(), Resources()],
         ),
       ),
     );

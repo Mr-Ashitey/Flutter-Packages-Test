@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
-import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
+import 'package:provider/provider.dart';
 
 class Resources extends StatelessWidget {
-  final RequestApi? requestApi;
-
-  const Resources({Key? key, this.requestApi}) : super(key: key);
+  const Resources({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ResourcesViewModel resourcesViewModel =
-        ResourcesViewModel(requestApi!);
+    final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
-      body: FutureBuilder<List<Resource>>(
+      body: FutureBuilder(
         future: resourcesViewModel.getResources(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,9 +30,9 @@ class Resources extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: resourcesViewModel.resources.length,
             itemBuilder: (context, index) {
-              final Resource resource = snapshot.data![index];
+              final Resource resource = resourcesViewModel.resources[index];
               return Card(
                 elevation: 8,
                 shadowColor: Color(int.parse(

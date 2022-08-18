@@ -18,9 +18,9 @@ void main() {
 
   test('Test success resources view model', () async {
     apiMocks.resourcesApiSuccessMock();
-    final resources = await resourcesViewModel.getResources();
-    expect(resources, isA<List<Resource>>());
-    expect(resources.length, 1);
+    await resourcesViewModel.getResources();
+    expect(resourcesViewModel.resources, isA<List<Resource>>());
+    expect(resourcesViewModel.resources.length, 1);
   });
   test('Test unsuccess resources view model', () async {
     apiMocks.resourcesApiFailureMock();

@@ -25,7 +25,8 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(Home(requestApi: mockRequestApi), null);
+          await tester.pumpApp(
+              Home(requestApi: mockRequestApi), mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byType(Users), findsOneWidget);
@@ -36,7 +37,8 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(Home(requestApi: mockRequestApi), null);
+          await tester.pumpApp(
+              Home(requestApi: mockRequestApi), mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byType(Users), findsOneWidget);
@@ -63,7 +65,8 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(Home(requestApi: mockRequestApi), null);
+          await tester.pumpApp(
+              Home(requestApi: mockRequestApi), mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byIcon(Icons.inventory_rounded), findsOneWidget);
@@ -80,7 +83,8 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(Home(requestApi: mockRequestApi), null);
+          await tester.pumpApp(
+              Home(requestApi: mockRequestApi), mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byIcon(Icons.inventory_rounded), findsOneWidget);
@@ -117,7 +121,7 @@ void main() {
   testWidgets('Prevent log out', (WidgetTester tester) async {
     apiMocks.usersApiSuccessMock();
     mockNetworkImagesFor(() async {
-      await tester.pumpApp(Home(requestApi: mockRequestApi), null);
+      await tester.pumpApp(Home(requestApi: mockRequestApi), mockRequestApi);
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(IconButton));

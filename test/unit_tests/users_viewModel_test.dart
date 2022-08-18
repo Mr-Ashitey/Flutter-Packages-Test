@@ -18,9 +18,9 @@ void main() {
 
   test('Test success users view model', () async {
     apiMocks.usersApiSuccessMock();
-    final users = await usersViewModel.getUsers();
-    expect(users, isA<List<User>>());
-    expect(users.length, 3);
+    await usersViewModel.getUsers();
+    expect(usersViewModel.users, isA<List<User>>());
+    expect(usersViewModel.users.length, 3);
   });
   test('Test unsuccess users view model', () async {
     apiMocks.usersApiFailureMock();

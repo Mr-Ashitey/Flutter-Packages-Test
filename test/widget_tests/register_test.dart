@@ -23,7 +23,7 @@ void main() {
   testWidgets('Test Register Screen with empty body',
       (WidgetTester tester) async {
     // Test without email input
-    await tester.pumpApp(Register(requestApi: mockRequestApi), null);
+    await tester.pumpApp(Register(requestApi: mockRequestApi), mockRequestApi);
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -34,7 +34,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
 
     // Test without password input
-    await tester.pumpApp(Register(requestApi: mockRequestApi), null);
+    await tester.pumpApp(Register(requestApi: mockRequestApi), mockRequestApi);
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -61,7 +61,7 @@ void main() {
     expect(find.byType(Login), findsOneWidget);
   });
   testWidgets('Test Register Screen with Failure', (WidgetTester tester) async {
-    await tester.pumpApp(Register(requestApi: mockRequestApi), null);
+    await tester.pumpApp(Register(requestApi: mockRequestApi), mockRequestApi);
 
     apiMocks.registerApiFailureMock();
 
