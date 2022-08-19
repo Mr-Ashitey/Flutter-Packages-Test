@@ -5,10 +5,11 @@ import '../services/api_request.dart';
 import '../services/api_status.dart';
 
 class UsersViewModel extends BaseModel {
-  final RequestApi _api = RequestApi();
+  final RequestApi _api;
   List<User>? _users = [];
 
-  // getters
+  UsersViewModel(this._api);
+// getters
   List<User> get users => [..._users!];
 
   // get list of users
