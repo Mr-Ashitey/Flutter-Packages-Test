@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
@@ -27,7 +26,7 @@ extension PumpApp on WidgetTester {
           initialRoute: route,
           routes: {
             Login.routeName: (context) => const Login(),
-            Register.routeName: (context) => Register(requestApi: requestApi),
+            Register.routeName: (context) => const Register(),
             Home.routeName: (context) => Home(requestApi: requestApi),
           },
         ),

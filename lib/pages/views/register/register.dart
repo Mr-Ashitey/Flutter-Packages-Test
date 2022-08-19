@@ -5,19 +5,31 @@ import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
 import '../../../core/viewModels/shared_viewModel.dart';
 
-class Register extends StatelessWidget {
-  final RequestApi? requestApi;
-
-  Register({Key? key, this.requestApi}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   static String routeName = registerRoute;
 
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final authViewModel = context.watch<AuthViewModel>();

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/constants.dart';
-import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +9,7 @@ import '../../../core/viewModels/shared_viewModel.dart';
 import '../../widgets/motivational_quote.dart';
 
 class Login extends StatefulWidget {
-  final RequestApi? requestApi;
-  const Login({Key? key, required this.requestApi}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   static String routeName = loginRoute;
 

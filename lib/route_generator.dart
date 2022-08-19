@@ -13,11 +13,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => Home(requestApi: RequestApi()));
       case loginRoute:
-        return MaterialPageRoute(
-            builder: (_) => Login(requestApi: RequestApi()));
+        return MaterialPageRoute(builder: (_) => const Login());
       case registerRoute:
-        return MaterialPageRoute(
-            builder: (_) => Register(requestApi: RequestApi()));
+        return MaterialPageRoute(builder: (_) => const Register());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
