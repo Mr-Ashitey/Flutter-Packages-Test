@@ -6,11 +6,18 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/models/user_model.dart';
 
-class Users extends StatelessWidget {
+class Users extends StatefulWidget {
   const Users({Key? key}) : super(key: key);
 
   @override
+  State<Users> createState() => _UsersState();
+}
+
+class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final usersViewModel = context.read<UsersViewModel>();
 
     return Scaffold(
@@ -78,4 +85,7 @@ class Users extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

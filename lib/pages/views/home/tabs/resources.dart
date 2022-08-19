@@ -4,11 +4,19 @@ import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 import 'package:provider/provider.dart';
 
-class Resources extends StatelessWidget {
+class Resources extends StatefulWidget {
   const Resources({Key? key}) : super(key: key);
 
   @override
+  State<Resources> createState() => _ResourcesState();
+}
+
+class _ResourcesState extends State<Resources>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
       body: FutureBuilder(
@@ -56,4 +64,7 @@ class Resources extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
