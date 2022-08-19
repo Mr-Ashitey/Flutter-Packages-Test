@@ -1,23 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/services/api_status.dart';
+import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Represents the state of the view
-enum ViewState { Idle, Busy }
-
-class AuthViewModel with ChangeNotifier {
+class AuthViewModel extends BaseModel {
   final RequestApi api;
 
   AuthViewModel(this.api);
-
-  ViewState _state = ViewState.Idle;
-  ViewState get state => _state;
-
-  void setState(ViewState viewState) {
-    _state = viewState;
-    notifyListeners();
-  }
 
   // login function
   Future<void> login(String email, String password) async {
