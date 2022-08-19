@@ -6,7 +6,7 @@ import 'package:packages_flutter/pages/views/register/register.dart';
 
 import 'core/services/api_request.dart';
 
-class CustomRouter {
+class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeRoute:

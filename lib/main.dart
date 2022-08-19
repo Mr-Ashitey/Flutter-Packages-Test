@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/api_request.dart';
-import 'route.dart';
+import 'route_generator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ Future<void> main() async {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: isLoggedIn ? homeRoute : loginRoute,
-        onGenerateRoute: CustomRouter.generateRoute,
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
     ),
   );
