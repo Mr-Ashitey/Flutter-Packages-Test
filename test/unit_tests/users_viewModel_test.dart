@@ -13,7 +13,7 @@ void main() {
   setUp(() {
     apiMocks = APIMocks();
     mockRequestApi = RequestApi.test(dio: apiMocks.dio);
-    usersViewModel = UsersViewModel();
+    usersViewModel = UsersViewModel(mockRequestApi);
   });
 
   test('Test success users view model', () async {
