@@ -6,6 +6,7 @@ import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/viewModels/shared_viewModel.dart';
 import '../../widgets/motivational_quote.dart';
 
 class Login extends StatefulWidget {
@@ -93,7 +94,8 @@ class _LoginState extends State<Login> {
                   await authViewModel.login(email, password);
 
                   // navigate to home page
-                  Navigator.pushReplacementNamed(context, homeRoute);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, homeRoute, (route) => false);
                 } catch (error) {
                   showSnackBar(context, error.toString(), 'error');
                 }
