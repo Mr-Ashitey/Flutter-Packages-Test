@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/services/api_request.dart';
 import '../../../core/viewModels/auth_view_model.dart';
+import '../../../core/viewModels/shared_viewModel.dart';
 
 class Register extends StatelessWidget {
   final RequestApi? requestApi;
