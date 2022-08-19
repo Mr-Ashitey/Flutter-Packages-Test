@@ -20,7 +20,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: AuthViewModel(RequestApi())),
-        ChangeNotifierProvider.value(value: UsersViewModel(RequestApi())),
+        ChangeNotifierProvider.value(value: UsersViewModel()),
         ChangeNotifierProvider.value(value: ResourcesViewModel(RequestApi())),
       ],
       child: MaterialApp(

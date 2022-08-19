@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
 import '../models/user_model.dart';
 import '../services/api_request.dart';
 import '../services/api_status.dart';
 
-class UsersViewModel with ChangeNotifier {
-  final RequestApi _api;
+class UsersViewModel extends BaseModel {
+  final RequestApi _api = RequestApi();
   List<User>? _users = [];
 
-  UsersViewModel(this._api);
-// getters
+  // getters
   List<User> get users => [..._users!];
 
   // get list of users

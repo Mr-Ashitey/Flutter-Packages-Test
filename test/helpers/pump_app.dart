@@ -17,8 +17,8 @@ extension PumpApp on WidgetTester {
     return pumpWidget(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: UsersViewModel(requestApi!)),
-          ChangeNotifierProvider.value(value: ResourcesViewModel(requestApi)),
+          ChangeNotifierProvider.value(value: UsersViewModel()),
+          ChangeNotifierProvider.value(value: ResourcesViewModel(requestApi!)),
         ],
         child: MaterialApp(
           home: widget,
