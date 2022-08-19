@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/pages/views/home/home.dart';
+import 'package:packages_flutter/pages/views/login/login.dart';
+import 'package:packages_flutter/pages/views/register/register.dart';
+
+import 'core/services/api_request.dart';
+
+class CustomRouter {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case homeRoute:
+        return MaterialPageRoute(
+            builder: (_) => Home(requestApi: RequestApi()));
+      case loginRoute:
+        return MaterialPageRoute(
+            builder: (_) => Login(requestApi: RequestApi()));
+      case registerRoute:
+        return MaterialPageRoute(
+            builder: (_) => Register(requestApi: RequestApi()));
+      default:
+        return MaterialPageRoute(builder: (_) {
+          return Scaffold(
+            body: Center(
+              child: Text('No route defined for ${settings.name}'),
+            ),
+          );
+        });
+    }
+  }
+}

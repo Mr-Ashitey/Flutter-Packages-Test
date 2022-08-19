@@ -4,13 +4,11 @@ import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 import 'package:packages_flutter/core/viewModels/users_view_model.dart';
-import 'package:packages_flutter/pages/views/home/home.dart';
-import 'package:packages_flutter/pages/views/login/login.dart';
-import 'package:packages_flutter/pages/views/register/register.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/api_request.dart';
+import 'route.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,11 +30,7 @@ Future<void> main() async {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: isLoggedIn ? homeRoute : loginRoute,
-        routes: {
-          Login.routeName: (context) => Login(requestApi: RequestApi()),
-          Register.routeName: (context) => Register(requestApi: RequestApi()),
-          Home.routeName: (context) => Home(requestApi: RequestApi()),
-        },
+        onGenerateRoute: CustomRouter.generateRoute,
       ),
     ),
   );
