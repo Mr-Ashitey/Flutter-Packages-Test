@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/pages/views/home/home.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
@@ -23,7 +24,8 @@ void main() {
   final registerTextButton = find.byType(TextButton);
   testWidgets('Test Login Screen with empty body', (WidgetTester tester) async {
     // Test without email input
-    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
+    await tester.pumpApp(loginRoute, mockRequestApi);
+    await tester.pump();
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -34,7 +36,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
 
     // Test without password input
-    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
+    await tester.pumpApp(loginRoute, mockRequestApi);
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -45,7 +47,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
   });
   testWidgets('Test Login Screen with Success', (WidgetTester tester) async {
-    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
+    await tester.pumpApp(loginRoute, mockRequestApi);
     await tester.pump();
 
     apiMocks.loginApiSuccessMock();
@@ -60,7 +62,7 @@ void main() {
     expect(find.byType(Home), findsOneWidget);
   });
   testWidgets('Test Login Screen with Failure', (WidgetTester tester) async {
-    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
+    await tester.pumpApp(loginRoute, mockRequestApi);
 
     apiMocks.loginApiFailureMock();
 
@@ -75,7 +77,7 @@ void main() {
   });
 
   testWidgets('Navigate to register screen', (WidgetTester tester) async {
-    await tester.pumpApp(Login(requestApi: mockRequestApi), mockRequestApi);
+    await tester.pumpApp(loginRoute, mockRequestApi);
 
     await tester.tap(registerTextButton);
     await tester.pumpAndSettle();

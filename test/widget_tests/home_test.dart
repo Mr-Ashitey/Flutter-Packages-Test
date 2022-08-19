@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:packages_flutter/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/pages/views/home/home.dart';
 import 'package:packages_flutter/pages/views/home/tabs/resources.dart';
@@ -25,8 +26,7 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(
-              Home(requestApi: mockRequestApi), mockRequestApi);
+          await tester.pumpApp(homeRoute, mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byType(Users), findsOneWidget);
@@ -37,8 +37,7 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(
-              Home(requestApi: mockRequestApi), mockRequestApi);
+          await tester.pumpApp(homeRoute, mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byType(Users), findsOneWidget);
@@ -65,8 +64,7 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(
-              Home(requestApi: mockRequestApi), mockRequestApi);
+          await tester.pumpApp(homeRoute, mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byIcon(Icons.inventory_rounded), findsOneWidget);
@@ -83,8 +81,7 @@ void main() {
           (WidgetTester tester) async {
         apiMocks.usersApiSuccessMock();
         mockNetworkImagesFor(() async {
-          await tester.pumpApp(
-              Home(requestApi: mockRequestApi), mockRequestApi);
+          await tester.pumpApp(homeRoute, mockRequestApi);
           await tester.pumpAndSettle();
 
           expect(find.byIcon(Icons.inventory_rounded), findsOneWidget);
@@ -102,7 +99,7 @@ void main() {
     apiMocks.usersApiSuccessMock();
     APIMocks.mockSharedPreferences();
     mockNetworkImagesFor(() async {
-      await tester.pumpApp(Home(requestApi: mockRequestApi), mockRequestApi);
+      await tester.pumpApp(homeRoute, mockRequestApi);
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(IconButton));
@@ -121,7 +118,7 @@ void main() {
   testWidgets('Prevent log out', (WidgetTester tester) async {
     apiMocks.usersApiSuccessMock();
     mockNetworkImagesFor(() async {
-      await tester.pumpApp(Home(requestApi: mockRequestApi), mockRequestApi);
+      await tester.pumpApp(homeRoute, mockRequestApi);
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(IconButton));
