@@ -8,7 +8,11 @@ class UsersViewModel extends BaseModel {
   final RequestApi _api;
   List<User>? _users = [];
 
-  UsersViewModel(this._api);
+  // main constructor for actual app
+  UsersViewModel() : _api = RequestApi();
+  // named constructor for testing
+  UsersViewModel.test(api) : _api = api;
+
 // getters
   List<User> get users => [..._users!];
 

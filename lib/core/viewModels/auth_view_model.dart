@@ -4,15 +4,19 @@ import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel extends BaseModel {
-  final RequestApi api;
+  final RequestApi _api;
 
-  AuthViewModel(this.api);
+  // main constructor for actual app
+  AuthViewModel() : _api = RequestApi();
+
+  // named constructor for testing
+  AuthViewModel.test(api) : _api = api;
 
   // login function
   Future<void> login(String email, String password) async {
     try {
       setState(ViewState.Busy);
-      final result = await api.post('/api/login', body: {
+      final result = await _api.post('/api/login', body: {
         'email': email,
         'password': password,
       });
@@ -32,7 +36,7 @@ class AuthViewModel extends BaseModel {
   Future<void> register(String email, String password) async {
     try {
       setState(ViewState.Busy);
-      await api.post('/api/register', body: {
+      await _api.post('/api/register', body: {
         'email': email,
         'password': password,
       });

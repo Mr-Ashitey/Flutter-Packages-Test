@@ -8,7 +8,11 @@ class ResourcesViewModel with ChangeNotifier {
   final RequestApi _api;
   List<Resource>? _resources = [];
 
-  ResourcesViewModel(this._api);
+  // main constructor for actual app
+  ResourcesViewModel() : _api = RequestApi();
+
+  // named constructor for testing
+  ResourcesViewModel.test(api) : _api = api;
 
   // getters
   List<Resource> get resources => [..._resources!];
