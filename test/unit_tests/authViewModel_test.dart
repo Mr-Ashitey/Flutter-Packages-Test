@@ -14,7 +14,7 @@ void main() {
   setUp(() async {
     apiMocks = APIMocks();
     mockRequestApi = RequestApi.test(dio: apiMocks.dio);
-    authViewModel = AuthViewModel(mockRequestApi);
+    authViewModel = AuthViewModel.test(mockRequestApi);
 
     mockedPrefs = await SharedPreferences
         .getInstance(); // get shared preferences instance
