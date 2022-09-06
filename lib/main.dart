@@ -7,7 +7,6 @@ import 'package:packages_flutter/core/viewModels/users_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/services/api_request.dart';
 import 'route_generator.dart';
 
 Future<void> main() async {
@@ -19,9 +18,9 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: AuthViewModel(RequestApi())),
-        ChangeNotifierProvider.value(value: UsersViewModel(RequestApi())),
-        ChangeNotifierProvider.value(value: ResourcesViewModel(RequestApi())),
+        ChangeNotifierProvider.value(value: AuthViewModel()),
+        ChangeNotifierProvider.value(value: UsersViewModel()),
+        ChangeNotifierProvider.value(value: ResourcesViewModel()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

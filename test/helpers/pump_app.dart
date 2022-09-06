@@ -18,16 +18,17 @@ extension PumpApp on WidgetTester {
     return pumpWidget(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: AuthViewModel(requestApi!)),
-          ChangeNotifierProvider.value(value: UsersViewModel(requestApi)),
-          ChangeNotifierProvider.value(value: ResourcesViewModel(requestApi)),
+          ChangeNotifierProvider.value(value: AuthViewModel.test(requestApi!)),
+          ChangeNotifierProvider.value(value: UsersViewModel.test(requestApi)),
+          ChangeNotifierProvider.value(
+              value: ResourcesViewModel.test(requestApi)),
         ],
         child: MaterialApp(
           initialRoute: route,
           routes: {
             Login.routeName: (context) => const Login(),
             Register.routeName: (context) => const Register(),
-            Home.routeName: (context) => Home(requestApi: requestApi),
+            Home.routeName: (context) => const Home(),
           },
         ),
       ),
