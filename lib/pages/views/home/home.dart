@@ -7,12 +7,9 @@ import 'package:packages_flutter/pages/views/home/tabs/users.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
-import '../../../core/services/api_request.dart';
 
 class Home extends StatelessWidget {
-  final RequestApi? requestApi;
-
-  const Home({Key? key, this.requestApi}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   static const routeName = homeRoute;
   @override

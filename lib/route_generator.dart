@@ -4,14 +4,11 @@ import 'package:packages_flutter/pages/views/home/home.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
 import 'package:packages_flutter/pages/views/register/register.dart';
 
-import 'core/services/api_request.dart';
-
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeRoute:
-        return MaterialPageRoute(
-            builder: (_) => Home(requestApi: RequestApi()));
+        return MaterialPageRoute(builder: (_) => const Home());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const Login());
       case registerRoute:
