@@ -15,7 +15,7 @@ class AuthViewModel extends BaseModel {
   // login function
   Future<void> login(String email, String password) async {
     try {
-      setState(ViewState.Busy);
+      setState(ViewState.busy);
       final result = await _api.post('/api/login', body: {
         'email': email,
         'password': password,
@@ -25,9 +25,9 @@ class AuthViewModel extends BaseModel {
       await prefs.setString('token', result.data['token']);
       await prefs.setBool('isLoggedIn', true);
 
-      setState(ViewState.Idle);
+      setState(ViewState.idle);
     } on Failure catch (e) {
-      setState(ViewState.Idle);
+      setState(ViewState.idle);
       throw e.errorResponse!;
     }
   }
@@ -35,15 +35,15 @@ class AuthViewModel extends BaseModel {
   // register function
   Future<void> register(String email, String password) async {
     try {
-      setState(ViewState.Busy);
+      setState(ViewState.busy);
       await _api.post('/api/register', body: {
         'email': email,
         'password': password,
       });
 
-      setState(ViewState.Idle);
+      setState(ViewState.idle);
     } on Failure catch (e) {
-      setState(ViewState.Idle);
+      setState(ViewState.idle);
       throw e.errorResponse!;
     }
   }

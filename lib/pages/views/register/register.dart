@@ -103,7 +103,7 @@ class _RegisterState extends State<Register> {
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
-              child: authViewModel.state == ViewState.Busy
+              child: authViewModel.state == ViewState.busy
                   ? const SizedBox(
                       height: 10,
                       width: 10,
@@ -119,7 +119,7 @@ class _RegisterState extends State<Register> {
             ),
             TextButton(
               onPressed: () {
-                authViewModel.state == ViewState.Busy
+                authViewModel.state == ViewState.busy
                     ? null
                     : Navigator.pushReplacementNamed(context, loginRoute);
               },
