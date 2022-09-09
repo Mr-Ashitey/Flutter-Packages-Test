@@ -10,7 +10,9 @@ class AuthViewModel extends BaseModel {
   AuthViewModel() : _api = RequestApi();
 
   // named constructor for testing
-  AuthViewModel.test(api) : _api = api;
+  AuthViewModel.test(api)
+      : assert(api is RequestApi),
+        _api = api;
 
   // login function
   Future<void> login(String email, String password) async {

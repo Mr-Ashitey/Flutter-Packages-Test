@@ -12,7 +12,9 @@ class ResourcesViewModel with ChangeNotifier {
   ResourcesViewModel() : _api = RequestApi();
 
   // named constructor for testing
-  ResourcesViewModel.test(api) : _api = api;
+  ResourcesViewModel.test(api)
+      : assert(api is RequestApi),
+        _api = api;
 
   // getters
   List<Resource> get resources => [..._resources!];
