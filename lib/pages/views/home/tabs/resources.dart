@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
 import 'package:provider/provider.dart';
@@ -19,48 +20,57 @@ class _ResourcesState extends State<Resources>
 
     final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
-      body: FutureBuilder(
-        future: resourcesViewModel.getResources(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: SpinKitDoubleBounce(
-                color: Colors.black,
-                size: 50.0,
-              ),
-            );
-          }
-
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: resourcesViewModel.resources.length,
-            itemBuilder: (context, index) {
-              final Resource resource = resourcesViewModel.resources[index];
-              return Card(
-                elevation: 8,
-                shadowColor: Color(int.parse(
-                    resource.color!.toString().replaceAll('#', '0xff'))),
-                margin: const EdgeInsets.all(20),
-                shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                        color: Color(int.parse(resource.color!
-                            .toString()
-                            .replaceAll('#', '0xff'))),
-                        width: 1)),
-                child: ListTile(
-                  title: Text(resource.name!),
-                  trailing: Text(resource.year!.toString()),
+      body: LiquidPullToRefresh(
+        onRefresh: resourcesViewModel.getResources,
+        backgroundColor: Colors.white,
+        showChildOpacityTransition: false,
+        color: Colors.black,
+        child: FutureBuilder(
+          future: resourcesViewModel.getResources(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: SpinKitDoubleBounce(
+                  color: Colors.black,
+                  size: 50.0,
                 ),
               );
-            },
-          );
-        },
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  snapshot.error.toString(),
+                  style: const TextStyle(fontSize: 20),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: resourcesViewModel.resources.length,
+              itemBuilder: (context, index) {
+                final Resource resource = resourcesViewModel.resources[index];
+                return Card(
+                  elevation: 8,
+                  shadowColor: Color(int.parse(
+                      resource.color!.toString().replaceAll('#', '0xff'))),
+                  margin: const EdgeInsets.all(20),
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          color: Color(int.parse(resource.color!
+                              .toString()
+                              .replaceAll('#', '0xff'))),
+                          width: 1)),
+                  child: ListTile(
+                    title: Text(resource.name!),
+                    trailing: Text(resource.year!.toString()),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
