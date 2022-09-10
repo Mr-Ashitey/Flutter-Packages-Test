@@ -4,7 +4,7 @@ import 'package:packages_flutter/core/models/resource_model.dart';
 import '../services/api_request.dart';
 import '../services/api_status.dart';
 
-class ResourcesViewModel with ChangeNotifier {
+class ResourcesViewModel extends ChangeNotifier {
   final RequestApi _api;
   List<Resource>? _resources = [];
 
