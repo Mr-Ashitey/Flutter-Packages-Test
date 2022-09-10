@@ -21,9 +21,14 @@ class _ResourcesState extends State<Resources>
     final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
       body: LiquidPullToRefresh(
-        onRefresh: resourcesViewModel.getResources,
+        onRefresh: () {
+          setState(() {});
+          return Future.microtask(() => null);
+        },
         backgroundColor: Colors.white,
         showChildOpacityTransition: false,
+        animSpeedFactor: 5,
+        springAnimationDurationInMilliseconds: 500,
         color: Colors.black,
         child: FutureBuilder(
           future: resourcesViewModel.getResources(),
@@ -39,13 +44,23 @@ class _ResourcesState extends State<Resources>
 
             if (snapshot.hasError) {
               return Center(
-                child: Text(
-                  snapshot.error.toString(),
-                  style: const TextStyle(fontSize: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      snapshot.error.toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.refresh_rounded),
+                      onPressed: () => setState(() {}),
+                      style: ElevatedButton.styleFrom(primary: Colors.black),
+                      label: const Text('Retry again'),
+                    ),
+                  ],
                 ),
               );
             }
-
             return ListView.builder(
               itemCount: resourcesViewModel.resources.length,
               itemBuilder: (context, index) {

@@ -23,10 +23,15 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
 
     return Scaffold(
       body: LiquidPullToRefresh(
-        onRefresh: usersViewModel.getUsers,
+        onRefresh: () {
+          setState(() {});
+          return Future.microtask(() => null);
+        },
         backgroundColor: Colors.white,
         color: Colors.black,
         showChildOpacityTransition: false,
+        animSpeedFactor: 5,
+        springAnimationDurationInMilliseconds: 500,
         child: FutureBuilder(
           future: usersViewModel.getUsers(),
           builder: (context, snapshot) {
@@ -38,12 +43,22 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
                 ),
               );
             }
-
             if (snapshot.hasError) {
               return Center(
-                child: Text(
-                  snapshot.error.toString(),
-                  style: const TextStyle(fontSize: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      snapshot.error.toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.refresh_rounded),
+                      onPressed: () => setState(() {}),
+                      style: ElevatedButton.styleFrom(primary: Colors.black),
+                      label: const Text('Retry again'),
+                    ),
+                  ],
                 ),
               );
             }
