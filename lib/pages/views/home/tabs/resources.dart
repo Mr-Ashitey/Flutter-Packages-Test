@@ -20,6 +20,11 @@ class _ResourcesState extends State<Resources>
 
     final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('add resource');
+        },
+      ),
       body: LiquidPullToRefresh(
         onRefresh: () {
           setState(() {});
@@ -54,7 +59,6 @@ class _ResourcesState extends State<Resources>
                     ElevatedButton.icon(
                       icon: const Icon(Icons.refresh_rounded),
                       onPressed: () => setState(() {}),
-                      style: ElevatedButton.styleFrom(primary: Colors.black),
                       label: const Text('Retry again'),
                     ),
                   ],
