@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/core/viewModels/users_view_model.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../../core/models/user_model.dart';
+import '../../../../../core/models/user_model.dart';
 
 class Users extends StatefulWidget {
   const Users({Key? key}) : super(key: key);
@@ -22,6 +23,10 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
     final usersViewModel = context.read<UsersViewModel>();
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.pushNamed(context, addUserRoute),
+      ),
       body: LiquidPullToRefresh(
         onRefresh: () {
           setState(() {});
@@ -55,7 +60,6 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
                     ElevatedButton.icon(
                       icon: const Icon(Icons.refresh_rounded),
                       onPressed: () => setState(() {}),
-                      style: ElevatedButton.styleFrom(primary: Colors.black),
                       label: const Text('Retry again'),
                     ),
                   ],

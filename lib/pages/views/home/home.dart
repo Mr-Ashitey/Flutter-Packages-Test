@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:packages_flutter/pages/views/home/tabs/resources.dart';
-import 'package:packages_flutter/pages/views/home/tabs/users.dart';
+import 'package:packages_flutter/pages/views/home/tabs/users/users.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constants.dart';
+import '../../../helpers/constants.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
-          backgroundColor: Colors.black,
           actions: [
             IconButton(
                 onPressed: () async {

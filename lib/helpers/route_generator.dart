@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/pages/views/home/home.dart';
+import 'package:packages_flutter/pages/views/home/tabs/users/add_user.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
 import 'package:packages_flutter/pages/views/register/register.dart';
 
@@ -13,6 +14,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Login());
       case registerRoute:
         return MaterialPageRoute(builder: (_) => const Register());
+      case addUserRoute:
+        return MaterialPageRoute(builder: (_) => const AddUser());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
