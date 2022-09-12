@@ -11,8 +11,7 @@ const String addUserRoute = '/add-user';
 void showToast(String message, String type) {
   Fluttertoast.showToast(
       msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.SNACKBAR,
       timeInSecForIosWeb: 1,
       backgroundColor: type == 'error' ? Colors.red : Colors.green,
       textColor: Colors.white,
