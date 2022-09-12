@@ -68,9 +68,9 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
             }
 
             return ListView.builder(
-              itemCount: usersViewModel.users.length,
+              itemCount: context.watch<UsersViewModel>().users.length,
               itemBuilder: (context, index) {
-                final User user = usersViewModel.users[index];
+                final User user = context.watch<UsersViewModel>().users[index];
                 return Card(
                   elevation: 8,
                   shadowColor: Colors.black,
@@ -104,13 +104,13 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
                     },
                     leading: ClipOval(
                         child: Image.network(
-                      user.avatar!,
+                      user.avatar ?? '',
                       errorBuilder: (context, error, stackTrace) {
                         return Container();
                       },
                     )),
                     title: Text('${user.firstName!} ${user.lastName!}'),
-                    subtitle: Text(user.email!),
+                    subtitle: Text(user.email ?? ''),
                   ),
                 );
               },
