@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
-import 'package:packages_flutter/pages/views/home/tabs/resources.dart';
+import 'package:packages_flutter/pages/views/home/tabs/resources/resources.dart';
 import 'package:packages_flutter/pages/views/home/tabs/users/users.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +14,7 @@ class Home extends StatelessWidget {
   static const routeName = homeRoute;
   @override
   Widget build(BuildContext context) {
+    int currentIndex = 0;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -51,9 +52,11 @@ class Home extends StatelessWidget {
                 },
                 icon: const Icon(Icons.logout_rounded))
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
+            isScrollable: false,
+            onTap: (index) => currentIndex = index,
             indicatorColor: Colors.white,
-            tabs: [
+            tabs: const [
               Tab(icon: Icon(Icons.people_alt_rounded)),
               Tab(icon: Icon(Icons.inventory_rounded)),
             ],
@@ -61,6 +64,16 @@ class Home extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [Users(), Resources()],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            if (currentIndex == 0) {
+              Navigator.pushNamed(context, addUserRoute);
+              return;
+            }
+            Navigator.pushNamed(context, addResourceRoute);
+          },
         ),
       ),
     );

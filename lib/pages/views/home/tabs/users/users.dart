@@ -23,10 +23,6 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
     final usersViewModel = context.read<UsersViewModel>();
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => Navigator.pushNamed(context, addUserRoute),
-      ),
       body: LiquidPullToRefresh(
         onRefresh: () {
           setState(() {});
