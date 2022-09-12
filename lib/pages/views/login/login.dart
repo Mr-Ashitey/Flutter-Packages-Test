@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  showSnackBar(context, 'All fields are required', 'error');
+                  showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                   Navigator.pushNamedAndRemoveUntil(
                       context, homeRoute, (route) => false);
                 } catch (error) {
-                  showSnackBar(context, error.toString(), 'error');
+                  showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),

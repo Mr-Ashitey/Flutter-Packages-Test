@@ -83,7 +83,7 @@ class _RegisterState extends State<Register> {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  showSnackBar(context, 'All fields are required', 'error');
+                  showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -93,13 +93,13 @@ class _RegisterState extends State<Register> {
                   await authViewModel.register(email, password);
 
                   // show success alert/snackbar and navigate to login screen to allow user to log into the app
-                  showSnackBar(context,
+                  showToast(
                       'Registration successful: Login to continue', 'success');
                   Navigator.of(context).pushReplacementNamed(loginRoute);
                 } catch (error) {
                   emailController.clear();
                   passwordController.clear();
-                  showSnackBar(context, error.toString(), 'error');
+                  showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
