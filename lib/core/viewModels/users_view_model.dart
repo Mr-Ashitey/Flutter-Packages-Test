@@ -30,4 +30,17 @@ class UsersViewModel extends ChangeNotifier {
       throw e.errorResponse!;
     }
   }
+
+  // add a user
+  Future addUser(String name, String job) async {
+    try {
+      final result =
+          await _api.post('/api/users', body: {"name": name, "job": job});
+
+      print(result);
+      print(_users);
+    } on Failure catch (error) {
+      throw error.errorResponse!;
+    }
+  }
 }
