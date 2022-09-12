@@ -6,6 +6,7 @@ const String homeRoute = '/';
 const String loginRoute = '/login';
 const String registerRoute = '/register';
 const String addUserRoute = '/add-user';
+const String addResourceRoute = '/add-resource';
 
 // messager alerts
 void showToast(String message, String type) {
