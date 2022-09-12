@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
 import 'package:provider/provider.dart';
 

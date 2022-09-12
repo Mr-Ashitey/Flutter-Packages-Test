@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:packages_flutter/constants.dart';
+import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
 
