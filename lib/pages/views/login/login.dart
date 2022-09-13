@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/helpers/constants.dart';
-import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
+import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/viewModels/shared_viewModel.dart';

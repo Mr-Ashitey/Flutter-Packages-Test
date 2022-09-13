@@ -5,7 +5,7 @@ import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/viewModels/auth_view_model.dart';
+import '../../../core/viewModels/auth_provider/auth_view_model.dart';
 import '../../../core/viewModels/shared_viewModel.dart';
 
 class Register extends StatefulWidget {

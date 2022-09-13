@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/helpers/constants.dart';
-import 'package:packages_flutter/core/viewModels/users_view_model.dart';
+import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
 
 import 'package:provider/provider.dart';
 

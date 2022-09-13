@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:packages_flutter/core/viewModels/providers.dart';
 import 'package:packages_flutter/helpers/constants.dart';
-import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
-import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
-import 'package:packages_flutter/core/viewModels/users_view_model.dart';
 import 'package:packages_flutter/helpers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,11 +15,7 @@ Future<void> main() async {
 
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: AuthViewModel()),
-        ChangeNotifierProvider.value(value: UsersViewModel()),
-        ChangeNotifierProvider.value(value: ResourcesViewModel()),
-      ],
+      providers: providers,
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: CustomTheme.mainTheme,

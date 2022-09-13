@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
-import '../models/user_model.dart';
-import '../services/api_request.dart';
-import '../services/api_status.dart';
+import '../../models/user_model.dart';
+import '../../services/api_request.dart';
+import '../../services/api_status.dart';
 
 class UsersViewModel extends BaseModel {
   final RequestApi _api;

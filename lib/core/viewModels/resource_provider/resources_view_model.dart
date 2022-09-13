@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
-import '../services/api_request.dart';
-import '../services/api_status.dart';
+import '../../services/api_request.dart';
+import '../../services/api_status.dart';
 
 class ResourcesViewModel extends BaseModel {
   final RequestApi _api;

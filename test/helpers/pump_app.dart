@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
-import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
-import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
-import 'package:packages_flutter/core/viewModels/users_view_model.dart';
+import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
+import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
+import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
 import 'package:packages_flutter/pages/views/home/home.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
 import 'package:packages_flutter/pages/views/register/register.dart';

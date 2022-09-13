@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
+import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 

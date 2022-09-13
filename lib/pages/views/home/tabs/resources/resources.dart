@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
-import 'package:packages_flutter/core/viewModels/resources_view_model.dart';
+import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:provider/provider.dart';
 
 class Resources extends StatefulWidget {

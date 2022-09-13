@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/core/viewModels/users_view_model.dart';
+import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
 import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';

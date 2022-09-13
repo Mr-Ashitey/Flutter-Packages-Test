@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:packages_flutter/core/models/user_model.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
-import 'package:packages_flutter/core/viewModels/users_view_model.dart';
+import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
 
 import '../helpers/api_mocks.dart';
 

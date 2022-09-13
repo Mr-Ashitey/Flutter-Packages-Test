@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
-import 'package:packages_flutter/core/viewModels/auth_view_model.dart';
+import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/api_mocks.dart';
