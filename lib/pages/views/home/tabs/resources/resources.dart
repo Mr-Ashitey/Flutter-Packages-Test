@@ -20,11 +20,11 @@ class _ResourcesState extends State<Resources>
 
     final resourcesViewModel = context.read<ResourcesViewModel>();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('add resource');
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     print('add resource');
+      //   },
+      // ),
       body: LiquidPullToRefresh(
         onRefresh: () {
           setState(() {});
