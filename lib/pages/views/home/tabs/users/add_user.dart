@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/users_view_model.dart';
 import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/viewModels/shared_viewModel.dart';
@@ -24,21 +25,34 @@ class _AddUserState extends State<AddUser> {
   }
 
   @override
+  void dispose() {
+    nameController!.dispose();
+    jobController!.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final usersViewModel = context.read<UsersViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add User"),
-      ),
+      appBar: AppBar(title: const Text("Add User")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildTextField(
-              nameController!, TextInputAction.next, "Enter name", 'Name'),
+          CustomTextField(
+            controller: nameController!,
+            textInputAction: TextInputAction.next,
+            helperText: "Enter name",
+            hintText: 'Name',
+          ),
           const SizedBox(height: 30),
-          buildTextField(
-              jobController!, TextInputAction.done, "Enter job", 'Job'),
+          CustomTextField(
+            controller: jobController!,
+            textInputAction: TextInputAction.done,
+            helperText: "Enter job",
+            hintText: 'Job',
+          ),
           const SizedBox(height: 50),
           Center(
             child: ElevatedButton(
@@ -75,28 +89,6 @@ class _AddUserState extends State<AddUser> {
                       )),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildTextField(TextEditingController controller,
-      TextInputAction textInputAction, String helperText, String hintText) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        controller: controller,
-        textCapitalization: TextCapitalization.words,
-        cursorColor: Colors.black,
-        textInputAction: textInputAction,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black54)),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black, width: 1.5),
-          ),
-          helperText: helperText,
-        ),
       ),
     );
   }
