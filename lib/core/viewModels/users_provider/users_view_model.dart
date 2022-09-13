@@ -63,7 +63,7 @@ class UsersViewModel extends BaseModel {
   }
 
   String generateRandomImageAvatar() {
-    int imageNumber = Random(10).nextInt(5) + 8;
+    int imageNumber = Random().nextInt(5) + 8;
 
     return 'https://reqres.in/img/faces/$imageNumber-image.jpg';
   }
