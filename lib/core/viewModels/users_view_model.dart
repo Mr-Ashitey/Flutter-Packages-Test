@@ -44,7 +44,7 @@ class UsersViewModel extends BaseModel {
       String firstName = result.data['name'].split(' ').first;
       String lastName = result.data['name'].split(' ').last;
       String email =
-          '${firstName.toLowerCase()}${lastName.toLowerCase()}@${result.data['job'].replaceAll(' ', '').toLowerCase()}.com';
+          '${firstName.toLowerCase()}.${lastName.toLowerCase()}@${result.data['job'].replaceAll(' ', '').toLowerCase()}.com';
 
       String avatar = generateRandomImageAvatar();
       // _users!.add(User.fromJson(result.data));
