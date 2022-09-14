@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/viewModels/shared_viewModel.dart';
 import '../../widgets/motivational_quote.dart';
+import '../../widgets/custom_progres_indicator.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -108,14 +109,7 @@ class _LoginState extends State<Login> {
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
               child: authViewModel.state == ViewState.busy
-                  ? const SizedBox(
-                      height: 10,
-                      width: 10,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ),
-                    )
+                  ? const CustomProgresIndicator()
                   : const Text(
                       'Login',
                       style: TextStyle(fontSize: 20),

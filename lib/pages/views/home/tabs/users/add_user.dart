@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
 import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
@@ -75,14 +76,7 @@ class _AddUserState extends State<AddUser> {
                           (error) => showToast(error.toString(), 'error'));
                 },
                 child: context.watch<UsersViewModel>().state == ViewState.busy
-                    ? const SizedBox(
-                        height: 10,
-                        width: 10,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 3,
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
-                      )
+                    ? const CustomProgresIndicator()
                     : const Text(
                         'Add User',
                         style: TextStyle(fontSize: 15),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 import 'package:provider/provider.dart';
 
@@ -104,14 +105,7 @@ class _RegisterState extends State<Register> {
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
               child: authViewModel.state == ViewState.busy
-                  ? const SizedBox(
-                      height: 10,
-                      width: 10,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ),
-                    )
+                  ? const CustomProgresIndicator()
                   : const Text(
                       'Register',
                       style: TextStyle(fontSize: 20),

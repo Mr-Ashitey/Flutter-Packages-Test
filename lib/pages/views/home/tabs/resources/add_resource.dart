@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
+import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
@@ -120,14 +121,7 @@ class _AddResourceState extends State<AddResource> {
                 },
                 child:
                     context.watch<ResourcesViewModel>().state == ViewState.busy
-                        ? const SizedBox(
-                            height: 10,
-                            width: 10,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
-                            ),
-                          )
+                        ? const CustomProgresIndicator()
                         : const Text(
                             'Add Resource',
                             style: TextStyle(fontSize: 15),
