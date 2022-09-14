@@ -18,14 +18,13 @@ class AddResource extends StatefulWidget {
 class _AddResourceState extends State<AddResource> {
   TextEditingController? nameController;
   TextEditingController? yearController;
-  TextEditingController? pantoneController;
   Color? currentColor;
 
   @override
   void initState() {
     nameController = TextEditingController();
     yearController = TextEditingController();
-    pantoneController = TextEditingController();
+    currentColor = Colors.black;
     super.initState();
   }
 
@@ -33,7 +32,6 @@ class _AddResourceState extends State<AddResource> {
   void dispose() {
     nameController!.dispose();
     yearController!.dispose();
-    pantoneController!.dispose();
     super.dispose();
   }
 
@@ -48,7 +46,6 @@ class _AddResourceState extends State<AddResource> {
       appBar: AppBar(title: const Text("Add Resource")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTextField(
             controller: nameController!,
@@ -60,17 +57,12 @@ class _AddResourceState extends State<AddResource> {
           CustomTextField(
             controller: yearController!,
             textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.number,
+            maxLength: 4,
             helperText: "Enter year",
             hintText: 'Year',
           ),
           const SizedBox(height: 30),
-          CustomTextField(
-            controller: pantoneController!,
-            textInputAction: TextInputAction.done,
-            helperText: "Enter pantone value",
-            hintText: 'Pantone Value',
-          ),
-          const SizedBox(height: 50),
           GestureDetector(
             onTap: () {
               showDialog(
@@ -93,20 +85,37 @@ class _AddResourceState extends State<AddResource> {
                     );
                   });
             },
-            child: CircleAvatar(backgroundColor: currentColor),
+            child: Center(
+              child: Container(
+                height: 58,
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: currentColor,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(3, 5),
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                // radius: 50,
+              ),
+            ),
           ),
+          const SizedBox(height: 10),
+          const Text('Pick Color'),
+          const SizedBox(height: 50),
           Center(
             child: ElevatedButton(
                 onPressed: () async {
                   // extract name and job text into variables(name, job)
-                  String name = nameController!.text.trim(),
-                      year = yearController!.text.trim(),
-                      pantone = pantoneController!.text.trim();
+                  String name = nameController!.text.trim();
+                  int? year = int.tryParse(yearController!.text.trim()),
+                      color = currentColor!.value;
 
-                  if (name.isEmpty ||
-                      // color.toString().isEmpty ||
-                      year.isEmpty ||
-                      pantone.isEmpty) {
+                  if (name.isEmpty || year! < 1000) {
                     showToast('All fields are required', 'error');
                     return;
                   }
@@ -114,7 +123,7 @@ class _AddResourceState extends State<AddResource> {
                   FocusManager.instance.primaryFocus!
                       .unfocus(); // unfocus keyboard
                   await resourcesViewModel
-                      .addResource(name, 'color', year, pantone)
+                      .addResource(name, year, color)
                       .then((value) => Navigator.pop(context))
                       .catchError(
                           (error) => showToast(error.toString(), 'error'));
