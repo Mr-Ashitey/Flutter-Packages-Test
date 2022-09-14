@@ -1,5 +1,5 @@
 class Resource {
-  int? id;
+  String? id;
   String? name;
   int? year;
   String? color;
@@ -8,7 +8,7 @@ class Resource {
   Resource({this.id, this.name, this.year, this.color, this.pantoneValue});
 
   Resource.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     name = json['name'];
     year = json['year'];
     color = json['color'];
