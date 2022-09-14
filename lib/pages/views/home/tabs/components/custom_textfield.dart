@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputAction textInputAction;
+  final TextInputType? keyboardType;
   final String helperText;
   final String hintText;
+  final int? maxLength;
   const CustomTextField(
       {Key? key,
       required this.controller,
       required this.textInputAction,
       required this.helperText,
-      required this.hintText})
+      required this.hintText,
+      this.keyboardType,
+      this.maxLength})
       : super(key: key);
 
   @override
@@ -22,6 +26,8 @@ class CustomTextField extends StatelessWidget {
         textCapitalization: TextCapitalization.words,
         cursorColor: Colors.black,
         textInputAction: textInputAction,
+        keyboardType: keyboardType,
+        maxLength: maxLength,
         decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(
