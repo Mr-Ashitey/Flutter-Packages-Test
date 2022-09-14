@@ -19,6 +19,7 @@ class _ResourcesState extends State<Resources>
     super.build(context);
 
     final resourcesViewModel = context.read<ResourcesViewModel>();
+
     return Scaffold(
       body: LiquidPullToRefresh(
         onRefresh: () {
@@ -61,20 +62,22 @@ class _ResourcesState extends State<Resources>
               );
             }
             return ListView.builder(
-              itemCount: resourcesViewModel.resources.length,
+              itemCount: context.watch<ResourcesViewModel>().resources.length,
               itemBuilder: (context, index) {
-                final Resource resource = resourcesViewModel.resources[index];
+                final Resource resource =
+                    context.watch<ResourcesViewModel>().resources[index];
+                // print(context.read<ResourcesViewModel>().resources.length);
                 return Card(
                   elevation: 8,
-                  shadowColor: Color(int.parse(
-                      resource.color!.toString().replaceAll('#', '0xff'))),
+                  shadowColor: Color(int.tryParse(
+                      resource.color!.toString().replaceAll('#', '0xff'))!),
                   margin: const EdgeInsets.all(20),
                   shape: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
-                          color: Color(int.parse(resource.color!
+                          color: Color(int.tryParse(resource.color!
                               .toString()
-                              .replaceAll('#', '0xff'))),
+                              .replaceAll('#', '0xff'))!),
                           width: 1)),
                   child: ListTile(
                     title: Text(resource.name!),
