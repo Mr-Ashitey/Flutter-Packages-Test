@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
@@ -34,20 +33,19 @@ class ResourcesViewModel extends BaseModel {
   }
 
   // add resource
-  Future<void> addResource(
-      String name, String year, String color, String pantone) async {
+  Future<void> addResource(String name, int year, int color) async {
     try {
       setState(ViewState.busy);
+
       final result = await _api.post('/api/resources', body: {
         "name": name,
         "year": year,
-        "color": color,
-        "pantone_value": pantone
+        "color": color.toString(),
       });
-      // "name": "fuchsia rose",
-      // "year": 2001,
-      // "color": "#C74375",
-      // "pantone_value": "17-2031"
+
+      _resources!.add(Resource.fromJson(result.data));
+
+
       setState(ViewState.idle);
     } on Failure catch (e) {
       setState(ViewState.idle);
