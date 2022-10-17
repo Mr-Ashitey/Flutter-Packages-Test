@@ -38,12 +38,11 @@ class RequestApi {
       return Failure(errorResponse: error.response!.data['error']);
     } else {
       // Something happened in setting up or sending the request that triggered an Error
-      debugPrint(error.requestOptions.toString());
       debugPrint(error.message is SocketException
           ? 'Connection Problem'
           : 'Unknown Error');
       return Failure(
-          errorResponse: error.message is SocketException
+          errorResponse: error.error is SocketException
               ? 'Connection Problem'
               : 'Unknown Error');
     }
