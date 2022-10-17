@@ -115,8 +115,12 @@ class _AddResourceState extends State<AddResource> {
                   int? year = int.tryParse(yearController!.text.trim()),
                       color = currentColor!.value;
 
-                  if (name.isEmpty || year! < 1000) {
-                    showToast('All fields are required', 'error');
+                  if (year! < 1000) {
+                    showToast('Year must be 4 digits', 'error');
+                    return;
+                  }
+                  if (name.isEmpty) {
+                    showToast('Name field is required', 'error');
                     return;
                   }
 
