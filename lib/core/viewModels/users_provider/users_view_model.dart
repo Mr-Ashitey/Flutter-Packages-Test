@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
+import '../../../helpers/constants.dart';
 import '../../models/user_model.dart';
 import '../../services/api_request.dart';
 import '../../services/api_status.dart';
@@ -58,7 +59,8 @@ class UsersViewModel extends BaseModel {
       setState(ViewState.idle);
     } on Failure catch (e) {
       setState(ViewState.idle);
-      throw e.errorResponse!;
+      showToast(e.errorResponse.toString(), 'error');
+      rethrow;
     }
   }
 

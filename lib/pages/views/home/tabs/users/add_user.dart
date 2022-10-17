@@ -69,11 +69,10 @@ class _AddUserState extends State<AddUser> {
 
                   FocusManager.instance.primaryFocus!
                       .unfocus(); // unfocus keyboard
-                  await usersViewModel
-                      .addUser(name, job)
-                      .then((value) => Navigator.pop(context))
-                      .catchError(
-                          (error) => showToast(error.toString(), 'error'));
+                  await usersViewModel.addUser(name, job).then((value) {
+                    showToast('$name added successfully', 'success');
+                    Navigator.pop(context);
+                  });
                 },
                 child: context.watch<UsersViewModel>().state == ViewState.busy
                     ? const CustomProgresIndicator()

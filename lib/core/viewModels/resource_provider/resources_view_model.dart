@@ -1,6 +1,7 @@
 import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
+import '../../../helpers/constants.dart';
 import '../../services/api_request.dart';
 import '../../services/api_status.dart';
 
@@ -45,11 +46,11 @@ class ResourcesViewModel extends BaseModel {
 
       _resources!.add(Resource.fromJson(result.data));
 
-
       setState(ViewState.idle);
     } on Failure catch (e) {
       setState(ViewState.idle);
-      throw e.errorResponse!;
+      showToast(e.errorResponse.toString(), 'error');
+      rethrow;
     }
   }
 }

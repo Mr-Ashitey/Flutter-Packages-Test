@@ -112,10 +112,10 @@ class _AddResourceState extends State<AddResource> {
                 onPressed: () async {
                   // extract name and job text into variables(name, job)
                   String name = nameController!.text.trim();
-                  int? year = int.tryParse(yearController!.text.trim()),
+                  int year = int.tryParse(yearController!.text.trim()) ?? 0,
                       color = currentColor!.value;
 
-                  if (year! < 1000) {
+                  if (year < 1000) {
                     showToast('Year must be 4 digits', 'error');
                     return;
                   }
@@ -128,9 +128,10 @@ class _AddResourceState extends State<AddResource> {
                       .unfocus(); // unfocus keyboard
                   await resourcesViewModel
                       .addResource(name, year, color)
-                      .then((value) => Navigator.pop(context))
-                      .catchError(
-                          (error) => showToast(error.toString(), 'error'));
+                      .then((value) {
+                    showToast('$name added successfully', 'success');
+                    Navigator.pop(context);
+                  });
                 },
                 child:
                     context.watch<ResourcesViewModel>().state == ViewState.busy
