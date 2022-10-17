@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
@@ -14,11 +15,40 @@ class Resources extends StatefulWidget {
 
 class _ResourcesState extends State<Resources>
     with AutomaticKeepAliveClientMixin {
+  ResourcesViewModel? resourcesViewModel;
+  ScrollController? scrollController;
+
+  @override
+  void initState() {
+    resourcesViewModel = context.read<ResourcesViewModel>();
+
+    scrollController = ScrollController();
+    scrollController!.addListener(() {
+      if (scrollController!.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!resourcesViewModel!.showFab) {
+          resourcesViewModel!.changeFabVisibility();
+        }
+      }
+      if (scrollController!.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (resourcesViewModel!.showFab) {
+          resourcesViewModel!.changeFabVisibility();
+        }
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    final resourcesViewModel = context.read<ResourcesViewModel>();
 
     return Scaffold(
       body: LiquidPullToRefresh(
@@ -32,7 +62,7 @@ class _ResourcesState extends State<Resources>
         springAnimationDurationInMilliseconds: 500,
         color: Colors.black,
         child: FutureBuilder(
-          future: resourcesViewModel.getResources(),
+          future: resourcesViewModel!.getResources(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -62,6 +92,7 @@ class _ResourcesState extends State<Resources>
               );
             }
             return ListView.builder(
+              controller: scrollController,
               itemCount: context.watch<ResourcesViewModel>().resources.length,
               itemBuilder: (context, index) {
                 final Resource resource =

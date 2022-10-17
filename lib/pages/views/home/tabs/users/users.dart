@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
@@ -15,11 +16,39 @@ class Users extends StatefulWidget {
 }
 
 class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
+  UsersViewModel? usersViewModel;
+  ScrollController? scrollController;
+
+  @override
+  void initState() {
+    usersViewModel = context.read<UsersViewModel>();
+    scrollController = ScrollController();
+    scrollController!.addListener(() {
+      if (scrollController!.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!usersViewModel!.showFab) {
+          usersViewModel!.changeFabVisibility();
+        }
+      }
+      if (scrollController!.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (usersViewModel!.showFab) {
+          usersViewModel!.changeFabVisibility();
+        }
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    final usersViewModel = context.read<UsersViewModel>();
 
     return Scaffold(
       body: LiquidPullToRefresh(
@@ -33,7 +62,7 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
         animSpeedFactor: 5,
         springAnimationDurationInMilliseconds: 500,
         child: FutureBuilder(
-          future: usersViewModel.getUsers(),
+          future: usersViewModel!.getUsers(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -63,6 +92,7 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
             }
 
             return ListView.builder(
+              controller: scrollController,
               itemCount: context.watch<UsersViewModel>().users.length,
               itemBuilder: (context, index) {
                 final User user = context.watch<UsersViewModel>().users[index];
