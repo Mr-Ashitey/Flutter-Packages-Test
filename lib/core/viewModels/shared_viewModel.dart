@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// a base model from which all change notifier classes will inherit and implement its methods
+// more specifically, the state property will be used alot to handle state
 class BaseModel extends ChangeNotifier {
   ViewState _state = ViewState.idle;
   bool _showFab = true;
