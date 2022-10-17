@@ -25,10 +25,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
     _tabController!.addListener(() {
-      if (_tabController!.indexIsChanging) {
-        // do this to update _tabController index on swipe and ontap
-        setState(() {});
-      }
+      // do this to update _tabController index on swipe and ontap
+      setState(() {});
     });
     super.initState();
   }
