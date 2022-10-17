@@ -36,6 +36,17 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
           usersViewModel!.changeFabVisibility();
         }
       }
+      if (scrollController!.initialScrollOffset == 0.0) {
+        if (usersViewModel!.showFab) {
+          usersViewModel!.changeFabVisibility();
+        }
+      }
+      // check to see if we are at the top item
+      if (scrollController!.offset == scrollController!.initialScrollOffset) {
+        if (!usersViewModel!.showFab) {
+          usersViewModel!.changeFabVisibility();
+        }
+      }
     });
     super.initState();
   }
@@ -93,6 +104,7 @@ class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
 
             return ListView.builder(
               controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
               itemCount: context.watch<UsersViewModel>().users.length,
               itemBuilder: (context, index) {
                 final User user = context.watch<UsersViewModel>().users[index];

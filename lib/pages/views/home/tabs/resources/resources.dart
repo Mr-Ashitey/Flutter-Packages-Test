@@ -36,6 +36,12 @@ class _ResourcesState extends State<Resources>
           resourcesViewModel!.changeFabVisibility();
         }
       }
+      // check to see if we are at the top item
+      if (scrollController!.offset == scrollController!.initialScrollOffset) {
+        if (!resourcesViewModel!.showFab) {
+          resourcesViewModel!.changeFabVisibility();
+        }
+      }
     });
     super.initState();
   }
@@ -93,6 +99,7 @@ class _ResourcesState extends State<Resources>
             }
             return ListView.builder(
               controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
               itemCount: context.watch<ResourcesViewModel>().resources.length,
               itemBuilder: (context, index) {
                 final Resource resource =
