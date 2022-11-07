@@ -6,14 +6,18 @@ class NoteDatabase {
   static final NoteDatabase instance = NoteDatabase._init();
 
   static Database? _database;
+  static const String _dbName = 'notes.db';
+  static const int _dbVersion = 1;
 
+  // making it a singleton class
   NoteDatabase._init();
 
+  // getter
   // check if database instance exists and create else return it
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('notes.db');
+    _database = await _initDB(_dbName);
     return _database!;
   }
 
@@ -22,7 +26,7 @@ class NoteDatabase {
 
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: _dbVersion, onCreate: _createDB);
   }
 
   // create database tables here
@@ -34,12 +38,12 @@ class NoteDatabase {
 
     await db.execute('''
     CREATE TABLE $tableNotes(
-      ${NoteFields.id} $idType
-      ${NoteFields.isImportant} $boolType
-      ${NoteFields.number} $integerType
-      ${NoteFields.time} $textType
+      ${NoteFields.id} $idType,
+      ${NoteFields.isImportant} $boolType,
+      ${NoteFields.number} $integerType,
+      ${NoteFields.time} $textType,
+      ${NoteFields.title} $textType,
       ${NoteFields.description} $textType
-      ${NoteFields.time} $textType
     )
     ''');
     return;
@@ -72,7 +76,7 @@ class NoteDatabase {
   }
 
   // read all columns in note table
-  Future<List<Note>> readAllNote() async {
+  Future<List<Note>> readAllNotes() async {
     final db = await instance.database;
     const String orderBy = '${NoteFields.time} ASC';
 
@@ -82,6 +86,7 @@ class NoteDatabase {
       return result.map((json) => Note.fromJson(json)).toList();
     }
 
+    return [];
     throw Exception('Empty items');
   }
 
