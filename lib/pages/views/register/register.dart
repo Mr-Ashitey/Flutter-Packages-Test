@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
@@ -10,30 +11,16 @@ import 'package:provider/provider.dart';
 import '../../../core/viewModels/auth_provider/auth_view_model.dart';
 import '../../../core/viewModels/shared_viewModel.dart';
 
-class Register extends StatefulWidget {
+class Register extends HookWidget {
   const Register({Key? key}) : super(key: key);
 
   static String routeName = RouteNames.registerRoute;
 
   @override
-  State<Register> createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
-  final TextEditingController emailController = TextEditingController();
-
-  final TextEditingController passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = useTextEditingController();
+    final TextEditingController passwordController = useTextEditingController();
+
     final authViewModel = context.watch<AuthViewModel>();
 
     return Scaffold(
