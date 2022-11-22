@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
-import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
@@ -63,14 +63,15 @@ class _AddUserState extends State<AddUser> {
                       job = jobController!.text.trim();
 
                   if (name.isEmpty || job.isEmpty) {
-                    showToast('All fields are required', 'error');
+                    DialogUtils.showToast('All fields are required', 'error');
                     return;
                   }
 
                   FocusManager.instance.primaryFocus!
                       .unfocus(); // unfocus keyboard
                   await usersViewModel.addUser(name, job).then((value) {
-                    showToast('$name added successfully', 'success');
+                    DialogUtils.showToast(
+                        '$name added successfully', 'success');
                     Navigator.pop(context);
                   });
                 },

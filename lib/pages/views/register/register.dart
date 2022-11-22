@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/core/utils/dialog.dart';
+import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/widgets/motivational_quote.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ import '../../../core/viewModels/shared_viewModel.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
-  static String routeName = registerRoute;
+  static String routeName = RouteNames.registerRoute;
 
   @override
   State<Register> createState() => _RegisterState();
@@ -84,7 +85,7 @@ class _RegisterState extends State<Register> {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  showToast('All fields are required', 'error');
+                  DialogUtils.showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -94,13 +95,14 @@ class _RegisterState extends State<Register> {
                   await authViewModel.register(email, password);
 
                   // show success alert/snackbar and navigate to login screen to allow user to log into the app
-                  showToast(
+                  DialogUtils.showToast(
                       'Registration successful: Login to continue', 'success');
-                  Navigator.of(context).pushReplacementNamed(loginRoute);
+                  Navigator.of(context)
+                      .pushReplacementNamed(RouteNames.loginRoute);
                 } catch (error) {
                   emailController.clear();
                   passwordController.clear();
-                  showToast(error.toString(), 'error');
+                  DialogUtils.showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
@@ -115,7 +117,8 @@ class _RegisterState extends State<Register> {
               onPressed: () {
                 authViewModel.state == ViewState.busy
                     ? null
-                    : Navigator.pushReplacementNamed(context, loginRoute);
+                    : Navigator.pushReplacementNamed(
+                        context, RouteNames.loginRoute);
               },
               style: TextButton.styleFrom(primary: Colors.black),
               child: const Text(

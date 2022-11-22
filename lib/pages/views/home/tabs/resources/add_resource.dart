@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
 import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/viewModels/shared_viewModel.dart';
-import '../../../../../helpers/constants.dart';
 
 class AddResource extends StatefulWidget {
   const AddResource({Key? key}) : super(key: key);
@@ -116,11 +116,11 @@ class _AddResourceState extends State<AddResource> {
                       color = currentColor!.value;
 
                   if (year < 1000) {
-                    showToast('Year must be 4 digits', 'error');
+                    DialogUtils.showToast('Year must be 4 digits', 'error');
                     return;
                   }
                   if (name.isEmpty) {
-                    showToast('Name field is required', 'error');
+                    DialogUtils.showToast('Name field is required', 'error');
                     return;
                   }
 
@@ -129,7 +129,8 @@ class _AddResourceState extends State<AddResource> {
                   await resourcesViewModel
                       .addResource(name, year, color)
                       .then((value) {
-                    showToast('$name added successfully', 'success');
+                    DialogUtils.showToast(
+                        '$name added successfully', 'success');
                     Navigator.pop(context);
                   });
                 },

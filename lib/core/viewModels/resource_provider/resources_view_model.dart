@@ -1,7 +1,7 @@
 import 'package:packages_flutter/core/models/resource_model.dart';
+import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
 
-import '../../../helpers/constants.dart';
 import '../../services/api_request.dart';
 import '../../services/api_status.dart';
 
@@ -49,7 +49,7 @@ class ResourcesViewModel extends BaseModel {
       setState(ViewState.idle);
     } on Failure catch (e) {
       setState(ViewState.idle);
-      showToast(e.errorResponse.toString(), 'error');
+      DialogUtils.showToast(e.errorResponse.toString(), 'error');
       rethrow;
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/providers.dart';
-import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/helpers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +19,7 @@ Future<void> main() async {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: CustomTheme.mainTheme,
-        initialRoute: isLoggedIn ? homeRoute : loginRoute,
+        initialRoute: isLoggedIn ? RouteNames.homeRoute : RouteNames.loginRoute,
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
     ),

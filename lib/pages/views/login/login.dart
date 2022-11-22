@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/helpers/constants.dart';
+import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
+import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/viewModels/shared_viewModel.dart';
@@ -12,7 +13,7 @@ import '../../widgets/custom_progres_indicator.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
-  static String routeName = loginRoute;
+  static String routeName = RouteNames.loginRoute;
 
   @override
   State<Login> createState() => _LoginState();
@@ -91,7 +92,7 @@ class _LoginState extends State<Login> {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  showToast('All fields are required', 'error');
+                  DialogUtils.showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -102,9 +103,9 @@ class _LoginState extends State<Login> {
 
                   // navigate to home page
                   Navigator.pushNamedAndRemoveUntil(
-                      context, homeRoute, (route) => false);
+                      context, RouteNames.homeRoute, (route) => false);
                 } catch (error) {
-                  showToast(error.toString(), 'error');
+                  DialogUtils.showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
@@ -119,7 +120,8 @@ class _LoginState extends State<Login> {
               onPressed: () {
                 authViewModel.state == ViewState.busy
                     ? null
-                    : Navigator.pushReplacementNamed(context, registerRoute);
+                    : Navigator.pushReplacementNamed(
+                        context, RouteNames.registerRoute);
               },
               style: TextButton.styleFrom(primary: Colors.black),
               child: const Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:packages_flutter/helpers/constants.dart';
 import 'package:packages_flutter/core/services/api_request.dart';
+import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/pages/views/login/login.dart';
 
 import '../helpers/api_mocks.dart';
@@ -23,7 +23,7 @@ void main() {
   testWidgets('Test Register Screen with empty body',
       (WidgetTester tester) async {
     // Test without email input
-    await tester.pumpApp(registerRoute, mockRequestApi);
+    await tester.pumpApp(RouteNames.registerRoute, mockRequestApi);
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -34,7 +34,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
 
     // Test without password input
-    await tester.pumpApp(registerRoute, mockRequestApi);
+    await tester.pumpApp(RouteNames.registerRoute, mockRequestApi);
 
     await tester.enterText(passwordTextField, 'password');
 
@@ -45,7 +45,7 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
   });
   testWidgets('Test Register Screen with Success', (WidgetTester tester) async {
-    await tester.pumpApp(registerRoute, mockRequestApi);
+    await tester.pumpApp(RouteNames.registerRoute, mockRequestApi);
 
     apiMocks.registerApiSuccessMock();
 
@@ -61,7 +61,7 @@ void main() {
     expect(find.byType(Login), findsOneWidget);
   });
   testWidgets('Test Register Screen with Failure', (WidgetTester tester) async {
-    await tester.pumpApp(registerRoute, mockRequestApi);
+    await tester.pumpApp(RouteNames.registerRoute, mockRequestApi);
 
     apiMocks.registerApiFailureMock();
 
@@ -77,7 +77,7 @@ void main() {
   });
 
   testWidgets('Navigate to login screen', (WidgetTester tester) async {
-    await tester.pumpApp(registerRoute, mockRequestApi);
+    await tester.pumpApp(RouteNames.registerRoute, mockRequestApi);
 
     await tester.tap(loginTextButton);
     await tester.pumpAndSettle();

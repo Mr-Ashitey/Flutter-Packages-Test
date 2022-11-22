@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
 import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
+import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/pages/views/home/tabs/resources/resources.dart';
 import 'package:packages_flutter/pages/views/home/tabs/users/users.dart';
 import 'package:provider/provider.dart';
 
-import '../../../helpers/constants.dart';
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
-  static const routeName = homeRoute;
+  static const routeName = RouteNames.homeRoute;
 
   @override
   State<Home> createState() => _HomeState();
@@ -66,8 +65,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 style: TextStyle(color: Colors.red)),
                             onPressed: () async {
                               await context.read<AuthViewModel>().logout();
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, loginRoute, (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  RouteNames.loginRoute, (route) => false);
                             },
                           ),
                         ],
@@ -94,10 +93,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               child: const Icon(Icons.add),
               onPressed: () {
                 if (_tabController!.index == 0) {
-                  Navigator.pushNamed(context, addUserRoute);
+                  Navigator.pushNamed(context, RouteNames.addUserRoute);
                   return;
                 }
-                Navigator.pushNamed(context, addResourceRoute);
+                Navigator.pushNamed(context, RouteNames.addResourceRoute);
               },
             )
           : null,
