@@ -71,7 +71,8 @@ class Login extends HookWidget {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  DialogUtils.showToast('All fields are required', 'error');
+                  context.showErrorSnackBar(message: 'All fields are required');
+                  // DialogUtils.showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -84,7 +85,8 @@ class Login extends HookWidget {
                   Navigator.pushNamedAndRemoveUntil(
                       context, RouteNames.homeRoute, (route) => false);
                 } catch (error) {
-                  DialogUtils.showToast(error.toString(), 'error');
+                  context.showErrorSnackBar(message: error.toString());
+                  // DialogUtils.showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),

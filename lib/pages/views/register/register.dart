@@ -72,7 +72,8 @@ class Register extends HookWidget {
                 String email = emailController.text.trim(),
                     password = passwordController.text.trim();
                 if (email.isEmpty || password.isEmpty) {
-                  DialogUtils.showToast('All fields are required', 'error');
+                  context.showErrorSnackBar(message: 'All fields are required');
+                  // DialogUtils.showToast('All fields are required', 'error');
                   return;
                 }
 
@@ -82,14 +83,17 @@ class Register extends HookWidget {
                   await authViewModel.register(email, password);
 
                   // show success alert/snackbar and navigate to login screen to allow user to log into the app
-                  DialogUtils.showToast(
-                      'Registration successful: Login to continue', 'success');
+                  context.showSnackBar(
+                      message: 'Registration successful: Login to continue');
+                  // DialogUtils.showToast(
+                  //     'Registration successful: Login to continue', 'success');
                   Navigator.of(context)
                       .pushReplacementNamed(RouteNames.loginRoute);
                 } catch (error) {
                   emailController.clear();
                   passwordController.clear();
-                  DialogUtils.showToast(error.toString(), 'error');
+                  context.showErrorSnackBar(message: error.toString());
+                  // DialogUtils.showToast(error.toString(), 'error');
                 }
               },
               style: ElevatedButton.styleFrom(primary: Colors.black),
