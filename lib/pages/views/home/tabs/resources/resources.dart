@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/models/resource_model.dart';
 import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:provider/provider.dart';
 
-class Resources extends StatefulWidget {
+class Resources extends StatefulHookWidget {
   const Resources({Key? key}) : super(key: key);
 
   @override
@@ -16,46 +17,41 @@ class Resources extends StatefulWidget {
 class _ResourcesState extends State<Resources>
     with AutomaticKeepAliveClientMixin {
   ResourcesViewModel? resourcesViewModel;
-  ScrollController? scrollController;
 
   @override
   void initState() {
     resourcesViewModel = context.read<ResourcesViewModel>();
-
-    scrollController = ScrollController();
-    scrollController!.addListener(() {
-      if (scrollController!.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        if (!resourcesViewModel!.showFab) {
-          resourcesViewModel!.changeFabVisibility();
-        }
-      }
-      if (scrollController!.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        if (resourcesViewModel!.showFab) {
-          resourcesViewModel!.changeFabVisibility();
-        }
-      }
-      // check to see if we are at the top item
-      if (scrollController!.offset == scrollController!.initialScrollOffset) {
-        if (!resourcesViewModel!.showFab) {
-          resourcesViewModel!.changeFabVisibility();
-        }
-      }
-    });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController!.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    ScrollController scrollController = useScrollController();
 
+    useEffect(() {
+      scrollController.addListener(() {
+        if (scrollController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          if (!resourcesViewModel!.showFab) {
+            resourcesViewModel!.changeFabVisibility();
+          }
+        }
+        if (scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          if (resourcesViewModel!.showFab) {
+            resourcesViewModel!.changeFabVisibility();
+          }
+        }
+        // check to see if we are at the top item
+        if (scrollController.offset == scrollController.initialScrollOffset) {
+          if (!resourcesViewModel!.showFab) {
+            resourcesViewModel!.changeFabVisibility();
+          }
+        }
+      });
+      return null;
+    });
     return Scaffold(
       body: LiquidPullToRefresh(
         onRefresh: () {

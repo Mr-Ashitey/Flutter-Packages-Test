@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:packages_flutter/core/utils/dialog.dart';
 import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
 import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/viewModels/shared_viewModel.dart';
 
-class AddResource extends StatefulWidget {
+class AddResource extends StatefulHookWidget {
   const AddResource({Key? key}) : super(key: key);
 
   @override
@@ -16,23 +17,12 @@ class AddResource extends StatefulWidget {
 }
 
 class _AddResourceState extends State<AddResource> {
-  TextEditingController? nameController;
-  TextEditingController? yearController;
   Color? currentColor;
 
   @override
   void initState() {
-    nameController = TextEditingController();
-    yearController = TextEditingController();
     currentColor = Colors.black;
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    nameController!.dispose();
-    yearController!.dispose();
-    super.dispose();
   }
 
   // listen to color change
@@ -40,6 +30,8 @@ class _AddResourceState extends State<AddResource> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = useTextEditingController();
+    TextEditingController yearController = useTextEditingController();
     final resourcesViewModel = context.read<ResourcesViewModel>();
 
     return Scaffold(
@@ -48,14 +40,14 @@ class _AddResourceState extends State<AddResource> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomTextField(
-            controller: nameController!,
+            controller: nameController,
             textInputAction: TextInputAction.next,
             helperText: "Enter name",
             hintText: 'Name',
           ),
           const SizedBox(height: 30),
           CustomTextField(
-            controller: yearController!,
+            controller: yearController,
             textInputAction: TextInputAction.done,
             keyboardType: TextInputType.number,
             maxLength: 4,
@@ -111,16 +103,19 @@ class _AddResourceState extends State<AddResource> {
             child: ElevatedButton(
                 onPressed: () async {
                   // extract name and job text into variables(name, job)
-                  String name = nameController!.text.trim();
-                  int year = int.tryParse(yearController!.text.trim()) ?? 0,
+                  String name = nameController.text.trim();
+                  int year = int.tryParse(yearController.text.trim()) ?? 0,
                       color = currentColor!.value;
 
                   if (year < 1000) {
-                    DialogUtils.showToast('Year must be 4 digits', 'error');
+                    context.showErrorSnackBar(message: 'Year must be 4 digits');
+                    // DialogUtils.showToast('Year must be 4 digits', 'error');
                     return;
                   }
                   if (name.isEmpty) {
-                    DialogUtils.showToast('Name field is required', 'error');
+                    context.showErrorSnackBar(
+                        message: 'Name field is required');
+                    // DialogUtils.showToast('Name field is required', 'error');
                     return;
                   }
 
@@ -129,8 +124,9 @@ class _AddResourceState extends State<AddResource> {
                   await resourcesViewModel
                       .addResource(name, year, color)
                       .then((value) {
-                    DialogUtils.showToast(
-                        '$name added successfully', 'success');
+                    context.showSnackBar(message: '$name added successfully');
+                    // DialogUtils.showToast(
+                    //     '$name added successfully', 'success');
                     Navigator.pop(context);
                   });
                 },

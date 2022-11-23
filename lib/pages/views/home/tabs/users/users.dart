@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/models/user_model.dart';
 
-class Users extends StatefulWidget {
+class Users extends StatefulHookWidget {
   const Users({Key? key}) : super(key: key);
 
   @override
@@ -17,54 +18,51 @@ class Users extends StatefulWidget {
 
 class _UsersState extends State<Users> with AutomaticKeepAliveClientMixin {
   UsersViewModel? usersViewModel;
-  ScrollController? scrollController;
 
   @override
   void initState() {
     usersViewModel = context.read<UsersViewModel>();
-    scrollController = ScrollController();
-    scrollController!.addListener(() {
-      if (scrollController!.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        if (!usersViewModel!.showFab) {
-          usersViewModel!.changeFabVisibility();
-        }
-      }
-      if (scrollController!.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        if (usersViewModel!.showFab) {
-          usersViewModel!.changeFabVisibility();
-        }
-      }
-      if (scrollController!.initialScrollOffset == 0.0) {
-        if (usersViewModel!.showFab) {
-          usersViewModel!.changeFabVisibility();
-        }
-      }
-      // check to see if we are at the top item
-      if (scrollController!.offset == scrollController!.initialScrollOffset) {
-        if (!usersViewModel!.showFab) {
-          usersViewModel!.changeFabVisibility();
-        }
-      }
-    });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController!.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    ScrollController scrollController = useScrollController();
 
+    useEffect(() {
+      scrollController.addListener(() {
+        if (scrollController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          if (!usersViewModel!.showFab) {
+            usersViewModel!.changeFabVisibility();
+          }
+        }
+        if (scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          if (usersViewModel!.showFab) {
+            usersViewModel!.changeFabVisibility();
+          }
+        }
+        if (scrollController.initialScrollOffset == 0.0) {
+          if (usersViewModel!.showFab) {
+            usersViewModel!.changeFabVisibility();
+          }
+        }
+        // check to see if we are at the top item
+        if (scrollController.offset == scrollController.initialScrollOffset) {
+          if (!usersViewModel!.showFab) {
+            usersViewModel!.changeFabVisibility();
+          }
+        }
+      });
+      return null;
+    });
     return Scaffold(
       body: LiquidPullToRefresh(
         onRefresh: () {
           setState(() {});
+          // usersViewModel!.getUsers();
           return Future.microtask(() => null);
         },
         backgroundColor: Colors.white,
