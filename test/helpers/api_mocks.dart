@@ -103,7 +103,7 @@ class APIMocks {
   */
   void resourcesApiSuccessMock() {
     dioAdapter.onGet(
-      '/api/unknown',
+      '/api/resources',
       (server) => server.reply(200, {
         "page": 1,
         "per_page": 6,
@@ -129,7 +129,7 @@ class APIMocks {
   */
   void resourcesApiFailureMock() {
     dioAdapter.onGet(
-      '/api/unknown',
+      '/api/resources',
       (server) => server.throws(400, errorMock({'error': 'not found'})),
     );
   }
