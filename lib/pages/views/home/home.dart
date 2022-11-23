@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:packages_flutter/core/viewModels/auth_provider/auth_view_model.dart';
-import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
-import 'package:packages_flutter/core/viewModels/users_provider/users_view_model.dart';
+
+import '/core/core_export.dart';
+
 import 'package:packages_flutter/helpers/constants/route_names.dart';
 import 'package:packages_flutter/pages/views/home/tabs/resources/resources.dart';
 import 'package:packages_flutter/pages/views/home/tabs/users/users.dart';
-import 'package:provider/provider.dart';
 
 class Home extends HookWidget {
   const Home({Key? key}) : super(key: key);

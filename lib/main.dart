@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:packages_flutter/core/viewModels/providers.dart';
-import 'package:packages_flutter/helpers/constants/route_names.dart';
-import 'package:packages_flutter/helpers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'helpers/route_generator.dart';
+import 'package:packages_flutter/core/viewModels/providers.dart';
+import 'package:packages_flutter/helpers/helpers_export.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

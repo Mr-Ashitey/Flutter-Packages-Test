@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:packages_flutter/core/utils/dialog.dart';
-import 'package:packages_flutter/core/viewModels/resource_provider/resources_view_model.dart';
-import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
-import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/viewModels/shared_viewModel.dart';
+import 'package:packages_flutter/core/core_export.dart';
+import 'package:packages_flutter/pages/widgets/custom_progres_indicator.dart';
+import 'package:packages_flutter/pages/views/home/tabs/components/custom_textfield.dart';
 
 class AddResource extends StatefulHookWidget {
   const AddResource({Key? key}) : super(key: key);
