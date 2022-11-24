@@ -1,7 +1,4 @@
-import 'package:packages_flutter/core/services/api_request.dart';
-import 'package:packages_flutter/core/services/api_status.dart';
-import 'package:packages_flutter/core/viewModels/shared_viewModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:packages_flutter/core/core_export.dart';
 
 class AuthViewModel extends BaseModel {
   final RequestApi _api;
@@ -23,9 +20,8 @@ class AuthViewModel extends BaseModel {
         'password': password,
       });
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', result.data['token']);
-      await prefs.setBool('isLoggedIn', true);
+      await PrefUtils.setToken(result.data['token']);
+      await PrefUtils.setIsLoggedIn();
 
       setState(ViewState.idle);
     } on Failure catch (e) {
@@ -51,9 +47,9 @@ class AuthViewModel extends BaseModel {
   }
 
   // logout function
-  Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('isLoggedIn');
-    await prefs.remove('token');
-  }
+  Future<void> logout() async => PrefUtils.clearPreferencesData();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.remove('isLoggedIn');
+  // await prefs.remove('token');
+
 }
